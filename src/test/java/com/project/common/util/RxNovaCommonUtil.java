@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
@@ -16,9 +17,12 @@ import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.seleniumhq.jetty9.util.StringUtil;
 
@@ -28,13 +32,17 @@ import com.psqframework.core.util.Project;
 
 public class RxNovaCommonUtil extends BasePage{
 	
-	
+	public enum Regions {DR1,DR2,DR3,RX2,QR1,QR2,QR3,UR1,UR2,RX6,QRF,UP1,UP2,UA1,UA2,UA3,UA4,UR3,UR4,UP3,UN1,UP6,UP7,PRODUCTION};
 	public Properties pf = new Properties();
+	public static String InputRegion=null;
+	
+	private String RxNova_URL;		
+	public static boolean isProduction;
 	
 	// common place holder for downloading Reports ( used with Drug List report Download)
 	//public static String downloadFilepath1 = System.getProperty("user.dir") + "\\target\\DownloadedReport";
-	public static String downloadFilepath1 = Project.Env.downloadDrugListReport();
-	public static String copydownloadFilepath1 = Project.Env.CopyFolderDrugListReport();
+//	public static String downloadFilepath1 = Project.Env.downloadDrugListReport();
+//	public static String copydownloadFilepath1 = Project.Env.CopyFolderDrugListReport();
 	
 	public void NavigateApplicationMenu(String strAppMenu) throws InterruptedException
 	{
@@ -601,22 +609,29 @@ public class RxNovaCommonUtil extends BasePage{
 	
 	
 	public void CheckBusyState() {
-		WebElement BusyElement = getDriver().findElement(By.xpath("//div[@id='loading']"));
+		WebElement BusyElement = getDriver().findElement(By.xpath("//img[@id='progress']"));
+
 		int cnt = 0;
 		int MaxSecond = 120;
 		System.out.println("Busy element style details : - " + BusyElement.getAttribute("style"));
-		while (BusyElement.getAttribute("style").equalsIgnoreCase("display: block;") && cnt <= MaxSecond)
+		while (!(BusyElement.getAttribute("style").contains("display: none;") && cnt <= MaxSecond))
 		// while(BusyElement.getAttribute("style").equalsIgnoreCase("display:
 		// none;"))
 		{
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(500);
 				int v1 = cnt++;
 				System.out.println("waiting ... : " + v1 +" Seconds");
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public void WaitForBusyIcon() {
+		WebDriverWait wt = new WebDriverWait(getDriver(),60);
+		WebElement busyElement = getDriver().findElement(By.id("loading"));
+		wt.until(ExpectedConditions.invisibilityOf(busyElement));
 	}
 
 	
@@ -703,7 +718,9 @@ public class RxNovaCommonUtil extends BasePage{
 				{ System.out.println("Invalid Application selection - please check the application name");break;}				
 			}			
 			NavigateApplicationMenu(APPPath);		
-			RxNova_PageSelection(APPPath);			
+			RxNova_PageSelection(APPPath);
+			getDriver().switchTo().defaultContent();
+			getDriver().switchTo().frame("contentFrame");
 		}
 	}	
 	
@@ -761,24 +778,78 @@ public class RxNovaCommonUtil extends BasePage{
 		
 	}
 	
+
+	public void switchToContentFrame() {
+		getDriver().switchTo().defaultContent();
+		getDriver().switchTo().frame("contentFrame");
+	}
 	
-//	
-//@Given("^Region \"(.*)\"$")
-//public void RegionSelectionByRegionName(String InputRegion) throws Throwable {
-//	if(getTitle().contains("Application Error"))
-//	{
-//		System.out.println("Current Title :" + getTitle());
-//		System.out.println(" $*$$$$$$$$$$$$$$$$$$$$ Refreshing the page $$$$$$$$$$$$$$$$$$$$$");
-//		getDriver().navigate().refresh();
-//		sleep(3000);
-//	}
-//	if(LaunchPage.isProduction)
-//	{
-//		System.out.println("in prod region");
-//		return;
-//	}
-//	return;	
-//}
-//
+	
+	
+public void navigateToRxNovaApplication() 
+	{			
+		System.out.println("-----------Open firefox and start RxNova Application-------------");				
+		try
+		{
+			InputRegion = System.getProperty("Region");
+			System.out.println("InputRegion from jenkins : " + InputRegion);
+			System.out.println("ERROR: ***********************Region parameter is empty*******************");			
+		}
+		catch(Exception e)
+		{
+			//InputRegion = utils.pf.getProperty("Region");
+			InputRegion =  Project.Env.userName();
+			System.out.println("InputRegion from properties file : " + InputRegion);
+		}
+		
+		if(System.getProperty("MavenRegion")==null)		{
+			//InputRegion = utils.pf.getProperty("Region");	
+			InputRegion =  Project.Env.region();
+			Log.info("Working on Region - Project.Env.region() " + Project.Env.region().toString());
+		}else{		
+			InputRegion = System.getProperty("MavenRegion");
+			Log.info("Working on Region - InputRegion " + InputRegion);
+			System.out.println("In MAVEN PARAMETERS region");
+		}
+		
+		switch(Regions.valueOf(InputRegion.toUpperCase()))
+		{
+			case QR1:
+			case QR2:
+			case QR3:
+			case QRF:
+			case RX6:
+				{ RxNova_URL = "https:qc-web/sso-web/login.jsf";isProduction=false; break;}
+			case DR1:
+			case DR2:
+			case DR3:				
+			case RX2:
+				{RxNova_URL = "https:dev-web/sso-web/login.jsf";isProduction=false; break;}			
+			case UP1:			
+			case UP3:
+			case UP6:
+			case UP7:
+			case UN1:
+			case UA1:
+			case UA2:
+			case UA3:
+			case UA4:
+			case UR1:
+			case UR2:
+			case UR3:
+			case UR4:
+				{RxNova_URL = "https:beta.argushealth.com/sso-web/login.jsf?";isProduction=false; break;}
+			case PRODUCTION:
+				{RxNova_URL = "https:www.argushealth.com/sso-web/login.jsf?";isProduction=true;break;}
+			default:
+				{ System.out.println("Invalid Region - please check the Region name");break;}
+		}
+		System.out.println("-----------" + RxNova_URL +"-------------");
+		//driver.get(RxNova_URL);		
+		//invoke(Project.Env.url());
+		invoke(RxNova_URL);
+		System.out.println("-----------Completed Open firefox and start RxNova Application-------------");
+	}
+
 	
 }

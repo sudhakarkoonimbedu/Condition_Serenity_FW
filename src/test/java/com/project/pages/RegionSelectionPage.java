@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.project.common.util.RxNovaCommonUtil;
 import com.psqframework.core.element.BaseElement;
 import com.psqframework.core.page.BasePage;
 
@@ -20,7 +21,7 @@ public class RegionSelectionPage extends BasePage {
 	private BaseElement globalMessageinfo;
 	
 	public void verifylogin(){
-		if(LaunchPage.isProduction)
+		if(RxNovaCommonUtil.isProduction)
 		{
 			System.out.println("in prod region");
 			return;
@@ -64,23 +65,20 @@ public class RegionSelectionPage extends BasePage {
 		{
 			//driver.findElement(By.id("messagesForm:globalMessages")).getText();
 			System.out.println(globalMessageinfo.getText());
-			
-			//driver.findElement(By.id("messagesForm:globalMessages")).getText();			
-			//"Login FailureWe're unable to complete the login with the specified credentials. After three consecutive failed attempts your user ID will be locked. (ASEC0101)"
-			
+					
 			if(globalMessageinfo.getText().contains("Login Failure") ||globalMessageinfo.getText().contains("Account Locked"))
 			{
 				assertEquals("Login Failure","Login Failure1");
 			}		
 		
 		}
-		if(LaunchPage.isProduction)
+		if(RxNovaCommonUtil.isProduction)
 		{
 			System.out.println("in prod region");
 			return;
 		}
 		System.out.println("-----------User should be able to click on QR1 Region-------------");
-		getDriver().findElement(By.linkText(LaunchPage.InputRegion)).click();	
+		getDriver().findElement(By.linkText(RxNovaCommonUtil.InputRegion)).click();	
 		sleep(5000);	
 		if(getTitle().contains("Application Error"))
 		{
@@ -90,21 +88,9 @@ public class RegionSelectionPage extends BasePage {
 			sleep(3000);
 			System.out.println("Current Title after refresh:" + getTitle());
 		}
-		/*if(driver.getTitle().contains("RxNova SSO Login"))
-		{
-			//driver.findElement(By.id("messagesForm:globalMessages")).getText();
-			System.out.println(driver.findElement(By.id("messagesForm:globalMessages")).getText());
-			
-			//driver.findElement(By.id("messagesForm:globalMessages")).getText();			
-			//"Login FailureWe're unable to complete the login with the specified credentials. After three consecutive failed attempts your user ID will be locked. (ASEC0101)"
-			
-			if(driver.findElement(By.id("messagesForm:globalMessages")).getText().contains("Login Failure"))
-			{
-				Assert.assertEquals("Login Failure","Login Failure1");
-			}		
-		
-		}*/
+	
 	}
+	
 	
 	
 }

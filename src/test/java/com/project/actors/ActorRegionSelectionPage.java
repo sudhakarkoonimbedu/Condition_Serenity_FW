@@ -4,9 +4,11 @@ import com.project.pages.RegionSelectionPage;
 import com.psqframework.core.actor.BaseActor;
 
 import net.thucydides.core.annotations.Step;
+import net.thucydides.core.annotations.Steps;
 
 public class ActorRegionSelectionPage extends BaseActor {
 
+	@Steps
 	RegionSelectionPage regionSelectionPage;
 	
 	@Step

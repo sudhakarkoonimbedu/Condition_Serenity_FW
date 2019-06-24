@@ -21,8 +21,6 @@ public interface EnvConfig extends Config {
 	
 	String region();
 
-	String downloadDrugListReport();
-	
-	String CopyFolderDrugListReport();
+
 	
 }

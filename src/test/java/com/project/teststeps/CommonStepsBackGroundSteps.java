@@ -2,11 +2,16 @@ package com.project.teststeps;
 
 import com.project.actors.ActorLaunchPage;
 import com.project.actors.ActorRegionSelectionPage;
+import com.project.actors.ActorConditionsPage;
 import com.project.common.util.RxNovaCommonUtil;
+
+import static org.junit.Assert.*;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import cucumber.api.java.en.And;
+import cucumber.api.java.en.But;
 import net.thucydides.core.annotations.Steps;
 
 
@@ -18,32 +23,33 @@ public class CommonStepsBackGroundSteps {
 	ActorRegionSelectionPage actorOnRegionSelectionPage;
 	@Steps
 	RxNovaCommonUtil rxNovaCommonUtil;
+	@Steps
+	ActorConditionsPage actorOnConditionsPage;
 	
 	
-	@Given("^Open Browser and Open RxNova URL$")	
+	@Given("^User opens the browser and goes to RxNova URL$")	
 	public void NavigateToRxNovaApplication() {
 		actorOnLaunchPage.launch_application();
 	}
 	
-	@When("^User enters valid username, valid password and clicks on Login$")	
+	@When("^They enter valid username, valid password and click on Login$")	
 	public void Login() throws InterruptedException	{
 		actorOnLaunchPage.perform_login();
 	}
 		
-	@Then("^Application should display Environment selection screen$")
+	@Then("^They check whether the application displays the Environment selection screen$")
 	public void VerifyUserLogin() throws Throwable {
 		actorOnRegionSelectionPage.verify_landing_page_details();	 	
 	}
 	
-	@Then("^User selects Region and Landing page should be displayed$")
+	@And("^They select Region and check whether the Landing Page is displayed$")
 	public void RegionSelection() throws Throwable {		
 		actorOnRegionSelectionPage.select_application_region();	
-	}		
+	}
 	
-	@Given("^Landing Page user navigates to \"(.*)\" application$")
+	@Then("^User navigates from Landing page to \"(.*)\" application$")
 	public void NavigateToApplication(String strApplication) throws Throwable{
 		rxNovaCommonUtil.NavigateApplication(strApplication);
 	}
-	
 	
 }
