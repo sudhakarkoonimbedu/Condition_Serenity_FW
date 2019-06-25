@@ -2,7 +2,7 @@ package com.project.teststeps;
 
 import com.project.actors.ActorLaunchPage;
 import com.project.actors.ActorRegionSelectionPage;
-import com.project.actors.ActorConditionsPage;
+import com.project.actors.ActorConditionsHomePage;
 import com.project.common.util.RxNovaCommonUtil;
 
 import cucumber.api.java.en.Then;
@@ -17,7 +17,7 @@ public class ConditionHomeUIVerificationSteps {
 	@Steps
 	RxNovaCommonUtil rxNovaCommonUtil;
 	@Steps
-	ActorConditionsPage actorOnConditionsPage;
+	ActorConditionsHomePage actorOnConditionsPage;
 
 	
 	@Then("^They check whether the \"(.*)\" is displayed$")
@@ -73,6 +73,11 @@ public class ConditionHomeUIVerificationSteps {
 	@Then("^\"(.*)\" should be disabled$")
 	public void ObjectIsDisabled(String ObjKey) {
 		actorOnConditionsPage.ObjectIsDisabled(ObjKey);
+	}
+	
+	@When("^They check whether \"(.*)\" is currently showing by checking for \"(.*)\"$")
+	public void IsTabDisplayed(String ObjKey, String ChildObjKey) {
+		actorOnConditionsPage.IsTabDisplayed(ObjKey, ChildObjKey);
 	}
 	
 }

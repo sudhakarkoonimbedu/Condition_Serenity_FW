@@ -2,7 +2,7 @@ package com.project.teststeps;
 
 import com.project.actors.ActorLaunchPage;
 import com.project.actors.ActorRegionSelectionPage;
-import com.project.actors.ActorConditionsPage;
+import com.project.actors.ActorConditionsHomePage;
 import com.project.common.util.RxNovaCommonUtil;
 
 import static org.junit.Assert.*;
@@ -24,7 +24,7 @@ public class CommonStepsBackGroundSteps {
 	@Steps
 	RxNovaCommonUtil rxNovaCommonUtil;
 	@Steps
-	ActorConditionsPage actorOnConditionsPage;
+	ActorConditionsHomePage actorOnConditionsPage;
 	
 	
 	@Given("^User opens the browser and goes to RxNova URL$")	

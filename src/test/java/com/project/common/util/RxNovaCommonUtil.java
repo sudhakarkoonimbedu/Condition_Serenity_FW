@@ -10,8 +10,11 @@ import java.time.Duration;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.StringTokenizer;
+import java.net.*;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
@@ -851,5 +854,127 @@ public void navigateToRxNovaApplication()
 		System.out.println("-----------Completed Open firefox and start RxNova Application-------------");
 	}
 
+	public boolean ObjectIsDisplayed(String ObjPath){
+		boolean isDisplayed = $(ObjPath).isDisplayed();
+		return(isDisplayed);
+	}
+
+	public boolean ObjectContainsExpectedText(String ObjPath, String expectedDisplay) {
+		boolean containsExpected = $(ObjPath).getText().contains(expectedDisplay);
+		return(containsExpected);
+	}
+
+	public boolean checkCurrentFieldDisplay(String ObjPath, String expectedDisplay) {
+		String currText = $(ObjPath).getText();
+		boolean match = false;
+		if(currText.isEmpty()) {
+			match = true;
+		}
+		
+		return(match);
+	}
 	
+	public boolean MCScheckContents(String ObjPath) {
+		List<String> options = $(ObjPath).getSelectOptions();
+		boolean hasContents = options.size() > 1;
+		return(hasContents);
+	}
+
+	public boolean DropdownCheckContents(String expected, String ObjPath) {
+		List<String> options = $(ObjPath).getSelectOptions();
+		boolean hasContents = options.size() > 1;
+		if(hasContents == true)
+		{
+			StringTokenizer tokenizer = new StringTokenizer(expected, ",");
+			while(tokenizer.hasMoreTokens()) {
+				String currToken = tokenizer.nextToken();
+				for(String i : options)
+				{
+					if(i.equals(currToken))
+					{
+						hasContents = true;
+					}
+					else
+					{
+						hasContents = false;
+					}
+				}
+			}
+		}
+		return(hasContents);
+	}
+	
+	public boolean isFieldClickable(String ObjPath) {
+		return($(ObjPath).isClickable());
+	}
+	
+	public void performClick(String ObjPath) {
+		$(ObjPath).click();
+	}
+	
+	public boolean ObjectIsDisabled(String ObjPath) {
+		String isDisabled = $(ObjPath).getAttribute("class");
+		boolean disabled = false;
+		if(isDisabled.contains("disabled"))
+		{
+			disabled = true;
+		}
+		return(disabled);	
+	}
+	
+	public boolean IsTabProperlyDisplayed(String ChildObjPath) {
+		boolean IsTabDisplayed = getDriver().findElements(By.xpath(ChildObjPath)).size() > 0;
+		return(IsTabDisplayed);
+	}
+	
+	public String FieldIDGenerator(int targetStringLength) {
+		final String values = "12345678912345678912345";
+		int valuesLen = values.length();
+		Random rnd = new Random();
+		String id = "";
+		String currentTime = String.valueOf(System.currentTimeMillis());
+		int currentTimeLen = currentTime.length();
+		int diffLen = 1;
+		if(targetStringLength != 1) {
+			diffLen = Math.abs(currentTimeLen - targetStringLength);
+		}
+		for(int i = 1; i <= diffLen; i++) {
+			id += values.charAt(rnd.nextInt(valuesLen));
+		}
+		if(targetStringLength != 1) {
+			return(String.valueOf(id + System.currentTimeMillis()));
+		}
+		else {
+			return("1");
+		}
+	}
+	
+	public void sendKeysToObject(String ObjPath, String toEnter) {
+		$(ObjPath).sendKeys(toEnter);
+	}
+	
+	public String WordGenerator() {
+		final String values = "abcdefghijklmnopqrstuvwxyz";
+		int valuesLen = values.length();
+		Random rnd = new Random();
+		String id = "";
+		for(int i = 1; i <= 8; i++) {
+			id += values.charAt(rnd.nextInt(valuesLen));
+		}
+		return(id);
+	}
+	
+	public int RandomIntegerGenerator(int maxValue) {
+		Random rnd = new Random();
+		System.out.println("here is" + maxValue);
+		int randomInt = rnd.nextInt(maxValue) + 1;
+		System.out.println(randomInt);
+		return(randomInt);
+	}
+	
+	public void selectFromDropdownUsingIndex(int index, String ObjPath) {
+		WebElement currElement = getDriver().findElement(By.xpath(ObjPath));
+		Select drop = new Select(currElement);
+		drop.selectByIndex(index);
+	}
 }

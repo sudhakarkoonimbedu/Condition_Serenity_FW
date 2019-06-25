@@ -1,35 +1,70 @@
 package com.project.pages;
-import com.project.pageobjectmaps.ConditionsPageMap;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import com.project.common.util.RxNovaCommonUtil;
 import com.psqframework.core.page.BasePage;
+
+import java.util.Collections;
 import java.util.List;
-import java.util.StringTokenizer;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import net.thucydides.core.annotations.Steps;
 
-public class ConditionsPage extends BasePage {
+public class ConditionsHomePage extends BasePage {
 	
 	@Steps
 	RxNovaCommonUtil rxNovaCommonUtil;
 	
+	public static Map<String, String> ConditionsHomeMap;
+	static {
+		Map<String, String> tmp = new ConcurrentHashMap<String, String>();
+		tmp.put("Condition Home Icon", "//a[@id='breadCrumbForm:j_idt51']");
+		tmp.put("Condition Home Breadcrumb", "//a[@id='breadCrumbForm:j_idt52']");
+		tmp.put("Condition Home", "//em[contains(text(),'Condition Home')]");
+		tmp.put("Master customer set:", "//select[@id='condition_form:condition_masterCustormerSet']");
+		tmp.put("Type:", "//select[@id='condition_form:j_idt208']");
+		tmp.put("Condition ID:", "//input[@id='condition_form:condition_id']");
+		tmp.put("Condition ID CD", "//input[@id='condition_form:j_idt212']");
+		tmp.put("Name:", "//input[@id='condition_form:condition_name']");
+		tmp.put("Status:", "//select[@name='condition_form:j_idt217']");
+		tmp.put("Source:", "//select[@id='condition_form:condition_source']");
+		tmp.put("Advanced Search", "//a[@id='condition_form:advancedSearchBtn']");
+		tmp.put("Sub-status:", "//select[@id='condition_form:subStatus']");
+		tmp.put("Tags:", "//input[@id='condition_form:condition_tag_input']");
+		tmp.put("Add", "//span[contains(text(),'Add')]");
+		tmp.put("Tag Check Box", "//input[@name='condition_form:tags_table:j_idt248_checkAll']");
+		tmp.put("Remove Selected", "//button[@id='condition_form:remove_select_button']");
+		tmp.put("Conditions Search", "//span[contains(text(),'Search')]");
+		tmp.put("Conditions Reset", "//span[contains(text(),'Reset')]");
+		tmp.put("Conditions New", "//span[@class='ui-button-text'][contains(text(),'New')]");
+		tmp.put("Tags Table", "//div[@id='condition_form:tags_table']");
+		tmp.put("Results Panel", "//legend[contains(text(),'Results')]");
+		ConditionsHomeMap = Collections.unmodifiableMap(tmp);
+	}
+	
+	public boolean IsTabProperlyDisplayed(String ChildObjKey) {
+		String ChildObjPath = ConditionsHomeMap.get(ChildObjKey);
+		boolean IsTabDisplayed = rxNovaCommonUtil.IsTabProperlyDisplayed(ChildObjPath);
+		return(IsTabDisplayed);
+	}
+	
 	public boolean ObjectIsDisplayed(String ObjKey){
-		String ObjPath = ConditionsPageMap.ConditionsMap.get(ObjKey);
-		boolean isDisplayed = $(ObjPath).isDisplayed();
+		String ObjPath = ConditionsHomeMap.get(ObjKey);
+		boolean isDisplayed = rxNovaCommonUtil.ObjectIsDisplayed(ObjPath);
 		return(isDisplayed);
 	}
 	
 	public boolean ObjectContainsExpectedText(String ObjKey, String expectedDisplay) {
-		String ObjPath = ConditionsPageMap.ConditionsMap.get(ObjKey);
-		boolean containsExpected = $(ObjPath).getText().contains(expectedDisplay);
+		String ObjPath = ConditionsHomeMap.get(ObjKey);
+		boolean containsExpected = rxNovaCommonUtil.ObjectContainsExpectedText(ObjPath, expectedDisplay);
 		return(containsExpected);
 	}
 	
 	public boolean checkCurrentDropdownDisplay(String ObjKey, String expectedDisplay) {
-		String ObjPath = ConditionsPageMap.ConditionsMap.get(ObjKey);
+		String ObjPath = ConditionsHomeMap.get(ObjKey);
 		String currVal = $(ObjPath).getSelectedValue();
 		currVal = currVal.replaceAll("_", " ");
 		boolean match = false;
@@ -41,18 +76,12 @@ public class ConditionsPage extends BasePage {
 	}
 	
 	public boolean checkCurrentFieldDisplay(String ObjKey, String expectedDisplay) {
-		String ObjPath = ConditionsPageMap.ConditionsMap.get(ObjKey);
-		String currText = $(ObjPath).getText();
-		boolean match = false;
-		if(currText.isEmpty()) {
-			match = true;
-		}
-		
+		String ObjPath = ConditionsHomeMap.get(ObjKey);
+		boolean match = rxNovaCommonUtil.checkCurrentFieldDisplay(ObjPath, expectedDisplay);
 		return(match);
 	}
 	
 	public boolean viewLabels(String label) {
-	//write a loop to get text from those classes and check whether the necessary labels exist there
 		List<WebElement> pageLabels = getDriver().findElements(By.className("firstCommonColumn"));
 		boolean labelMatch = false;
 		for(WebElement i : pageLabels) {
@@ -66,40 +95,20 @@ public class ConditionsPage extends BasePage {
 	}
 	
 	public boolean MCScheckContents(String ObjKey) {
-		String ObjPath = ConditionsPageMap.ConditionsMap.get(ObjKey);
-		List<String> options = $(ObjPath).getSelectOptions();
-		boolean hasContents = options.size() > 1;
+		String ObjPath = ConditionsHomeMap.get(ObjKey);
+		boolean hasContents = rxNovaCommonUtil.MCScheckContents(ObjPath);
 		return(hasContents);
 	}
 
 	
 	public boolean DropdownCheckContents(String expected, String ObjKey) {
-		String ObjPath = ConditionsPageMap.ConditionsMap.get(ObjKey);
-		List<String> options = $(ObjPath).getSelectOptions();
-		boolean hasContents = options.size() > 1;
-		if(hasContents == true)
-		{
-			StringTokenizer tokenizer = new StringTokenizer(expected, ",");
-			while(tokenizer.hasMoreTokens()) {
-				String currToken = tokenizer.nextToken();
-				for(String i : options)
-				{
-					if(i.equals(currToken))
-					{
-						hasContents = true;
-					}
-					else
-					{
-						hasContents = false;
-					}
-				}
-			}
-		}
+		String ObjPath = ConditionsHomeMap.get(ObjKey);
+		boolean hasContents = rxNovaCommonUtil.DropdownCheckContents(expected, ObjPath);
 		return(hasContents);
 	}
 	
 	public boolean checkPrefix(String prefix, String ObjKey) {
-		String ObjPath = ConditionsPageMap.ConditionsMap.get(ObjKey);
+		String ObjPath = ConditionsHomeMap.get(ObjKey);
 		String checkCD = $(ObjPath).getAttribute("value");
 		if(checkCD.equals(prefix))
 		{
@@ -112,23 +121,19 @@ public class ConditionsPage extends BasePage {
 	}
 	
 	public boolean isFieldClickable(String ObjKey) {
-		String ObjPath = ConditionsPageMap.ConditionsMap.get(ObjKey);
-		return($(ObjPath).isClickable());
+		String ObjPath = ConditionsHomeMap.get(ObjKey);
+		boolean isClickable = rxNovaCommonUtil.isFieldClickable(ObjPath);
+		return(isClickable);
 	}
 	
 	public void performClick(String ObjKey) {
-		String ObjPath = ConditionsPageMap.ConditionsMap.get(ObjKey);
-		$(ObjPath).click();
+		String ObjPath = ConditionsHomeMap.get(ObjKey);
+		rxNovaCommonUtil.performClick(ObjPath);
 	}
 	
 	public boolean ObjectIsDisabled(String ObjKey) {
-		String ObjPath = ConditionsPageMap.ConditionsMap.get(ObjKey);
-		String isDisabled = $(ObjPath).getAttribute("aria-disabled");
-		boolean disabled = false;
-		if(isDisabled.equals("true"))
-		{
-			disabled = true;
-		}
-		return(disabled);	
+		String ObjPath = ConditionsHomeMap.get(ObjKey);
+		boolean isDisabled = rxNovaCommonUtil.ObjectIsDisabled(ObjPath);
+		return(isDisabled);
 	}
 }	
