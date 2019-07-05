@@ -14,12 +14,13 @@ public class ActorLaunchPage {
 	LaunchPage launchPage;
 		
 	@Step	
-	public void launch_application(){
+	public void launch_application() {
+
 		rxNovaCommonUtils.navigateToRxNovaApplication();	
 	}
 	
 	@Step
-	public void perform_login(){
+	public void perform_login() throws InterruptedException {
 		launchPage.performLogin();
 	}	
 

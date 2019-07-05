@@ -7,15 +7,31 @@ import com.project.pages.ConditionsHomePage;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.Steps;
 
+import cucumber.api.DataTable;
+import java.util.List;
+import com.project.common.util.RxNovaCommonUtil;
+
 public class ActorConditionsHomePage {
 	
 	@Steps
 	ConditionsHomePage conditionsHomePage;
+	@Steps 
+	RxNovaCommonUtil rxNovaCommonUtil;
 	
 	@Step
 	public void ObjectIsDisplayed(String ObjKey) {
 		boolean isDisplayed = conditionsHomePage.ObjectIsDisplayed(ObjKey);
 		assertTrue("'" + ObjKey + "'" + " object is not displayed ", isDisplayed);
+	}
+	
+	@Step
+	public void SelectFromDropdown(String input, String ObjKey) {
+		conditionsHomePage.mySelectFromDropdown(input, ObjKey);
+	}
+	
+	@Step
+	public void SendKeysToField(String input, String ObjKey) {
+		conditionsHomePage.SendKeysToField(input, ObjKey);
 	}
 	
 	@Step
@@ -84,6 +100,20 @@ public class ActorConditionsHomePage {
 	public void IsTabDisplayed(String ObjKey, String ChildObjKey) {
 		boolean isTabDisplayed = conditionsHomePage.IsTabProperlyDisplayed(ChildObjKey);
 		assertTrue("'" + ObjKey + "'" + " is not displayed", isTabDisplayed);
+	}
+	
+	@Step
+	public void SearchingForConditiontoDelete(String ObjKey, DataTable data) throws InterruptedException {
+		List<List<String>> enterData = data.raw();
+		SelectFromDropdown(enterData.get(1).get(0), "Master customer set:");
+		rxNovaCommonUtil.CheckBusyState();
+		SelectFromDropdown(enterData.get(1).get(1), "Type:");
+		rxNovaCommonUtil.CheckBusyState();
+		SendKeysToField(enterData.get(1).get(2), "Condition ID:");
+		rxNovaCommonUtil.CheckBusyState();
+		SendKeysToField(enterData.get(1).get(3), "Name:");
+		rxNovaCommonUtil.CheckBusyState();
+		clickIfClickable(ObjKey);
 	}
 
 }

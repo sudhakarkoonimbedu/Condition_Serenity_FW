@@ -18,6 +18,7 @@ import java.net.*;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
@@ -42,10 +43,11 @@ public class RxNovaCommonUtil extends BasePage{
 	private String RxNova_URL;		
 	public static boolean isProduction;
 	
-	// common place holder for downloading Reports ( used with Drug List report Download)
-	//public static String downloadFilepath1 = System.getProperty("user.dir") + "\\target\\DownloadedReport";
-//	public static String downloadFilepath1 = Project.Env.downloadDrugListReport();
-//	public static String copydownloadFilepath1 = Project.Env.CopyFolderDrugListReport();
+	//  common place holder for downloading Reports ( used with Drug List report Download)
+	//  public static String downloadFilepath1 = System.getProperty("user.dir") + "\\target\\DownloadedReport";
+    //	public static String downloadFilepath1 = Project.Env.downloadDrugListReport();
+    //	public static String copydownloadFilepath1 = Project.Env.CopyFolderDrugListReport();
+	
 	
 	public void NavigateApplicationMenu(String strAppMenu) throws InterruptedException
 	{
@@ -507,12 +509,23 @@ public class RxNovaCommonUtil extends BasePage{
 		
 		if(getDriver().findElements(objElementName).size()!=0 && StringUtil.isNotBlank(strValue))
 		{
-			String strName =getDriver().findElement(objElementName).getAttribute("name");
+			String strName = getDriver().findElement(objElementName).getAttribute("name");
 			getDriver().findElement(objElementName).sendKeys(strValue);			
 			Thread.sleep(2000);
-			getDriver().findElement(By.partialLinkText(strValue)).click();
+			
+			int value = getDriver().findElements(By.linkText(strValue)).size();
+			if (value > 0) {
+				Thread.sleep(500);
+				getDriver().findElement(By.linkText(strValue)).click();
+			}
+			else {
+				Thread.sleep(500);
+				getDriver().findElement(By.partialLinkText(strValue)).click();
+			}
 			boolSelectValueFromFieldIntellisence=true;
+			getDriver().findElement(objElementName).sendKeys(Keys.TAB);
 			System.out.println("Set text on webelement : " + strName + " Value :" + strValue );
+			Thread.sleep(2000);
 		}
 		
 		if(boolSelectValueFromFieldIntellisence==false)
@@ -611,8 +624,9 @@ public class RxNovaCommonUtil extends BasePage{
 	}
 	
 	
-	public void CheckBusyState() {
-		WebElement BusyElement = getDriver().findElement(By.xpath("//img[@id='progress']"));
+	public void CheckBusyState() throws InterruptedException {
+		Thread.sleep(1000);
+		WebElement BusyElement = getDriver().findElement(By.id("loading"));
 
 		int cnt = 0;
 		int MaxSecond = 120;
@@ -630,6 +644,7 @@ public class RxNovaCommonUtil extends BasePage{
 			}
 		}
 	}
+
 	
 	public void WaitForBusyIcon() {
 		WebDriverWait wt = new WebDriverWait(getDriver(),60);
@@ -787,7 +802,11 @@ public class RxNovaCommonUtil extends BasePage{
 		getDriver().switchTo().frame("contentFrame");
 	}
 	
+	public static int numBrowsers = 0;
 	
+	public int LaunchRandomizerInt() {
+		return(++numBrowsers);
+	}
 	
 public void navigateToRxNovaApplication() 
 	{			
@@ -892,12 +911,36 @@ public void navigateToRxNovaApplication()
 				{
 					if(i.equals(currToken))
 					{
+						System.out.println("Dropdown contains " + currToken);
 						hasContents = true;
 					}
 					else
 					{
+						System.out.println("Dropdown does not contain " + currToken);
 						hasContents = false;
 					}
+				}
+			}
+		}
+		return(hasContents);
+	}
+	
+	public boolean TableCheckContents(String expected, String ObjPath) {
+		String options = $(ObjPath).getText();
+		boolean hasContents = true;
+		if(hasContents == true)
+		{
+			StringTokenizer tokenizer = new StringTokenizer(expected, ",");
+			while(tokenizer.hasMoreTokens()) {
+				String currToken = tokenizer.nextToken();
+				if(options.contains(currToken)) {
+					System.out.println("Table Object contains " + currToken);
+					hasContents = true;
+					break;
+				}
+				else {
+					System.out.println("Table Object does not contain " + currToken);
+					hasContents = false;
 				}
 			}
 		}

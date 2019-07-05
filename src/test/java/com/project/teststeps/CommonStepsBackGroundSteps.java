@@ -3,7 +3,10 @@ package com.project.teststeps;
 import com.project.actors.ActorLaunchPage;
 import com.project.actors.ActorRegionSelectionPage;
 import com.project.actors.ActorConditionsHomePage;
+import com.project.actors.ActorConditionsDetailsPage;
 import com.project.common.util.RxNovaCommonUtil;
+
+import cucumber.api.DataTable;
 
 import static org.junit.Assert.*;
 
@@ -25,10 +28,12 @@ public class CommonStepsBackGroundSteps {
 	RxNovaCommonUtil rxNovaCommonUtil;
 	@Steps
 	ActorConditionsHomePage actorOnConditionsPage;
+	@Steps
+	ActorConditionsDetailsPage actorOnConditionsDetailsPage;
 	
 	
 	@Given("^User opens the browser and goes to RxNova URL$")	
-	public void NavigateToRxNovaApplication() {
+	public void NavigateToRxNovaApplication() throws InterruptedException {
 		actorOnLaunchPage.launch_application();
 	}
 	
@@ -52,4 +57,18 @@ public class CommonStepsBackGroundSteps {
 		rxNovaCommonUtil.NavigateApplication(strApplication);
 	}
 	
+	@Then("^User enters the following data into Condition Home Search Panel and presses \"(.*)\"$")
+	public void SearchingForConditiontoDelete(String ObjKey, DataTable data) throws InterruptedException {
+		actorOnConditionsPage.SearchingForConditiontoDelete(ObjKey, data);
+	}
+	
+	@Then("They enter the following tracking id \"(.*)\" and press \"(.*)\"")
+	public void EnteringTrackingIDforConditionDeletion(String ID, String ObjKey) throws InterruptedException, Throwable {
+		actorOnConditionsDetailsPage.EnteringTrackingIDforConditionDeletion(ID, ObjKey);
+	}
+	
+	@Then("^User deletes Condition$") 
+	public void userDeletesCondition() throws Throwable {
+		actorOnConditionsDetailsPage.userDeletesCondition();
+	}
 }

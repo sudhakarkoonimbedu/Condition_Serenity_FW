@@ -1,14 +1,15 @@
 package com.project.pages;
 
+import com.project.common.util.RxNovaCommonUtil;
 import com.psqframework.core.element.BaseElement;
 import com.psqframework.core.page.BasePage;
 import com.psqframework.core.util.Project;
 
-import com.project.common.util.RxNovaCommonUtil;
 import net.serenitybdd.core.annotations.findby.FindBy;
-import net.thucydides.core.annotations.Steps;
 
 public class LaunchPage extends BasePage {
+	
+	RxNovaCommonUtil rxNovaCommonUtils;
 
 	@FindBy(id="loginForm:principal")
 	private BaseElement userName;
@@ -23,7 +24,7 @@ public class LaunchPage extends BasePage {
 	@FindBy(id="messagesForm:globalMessages")
 	private BaseElement globalMessageinfo;
 	
-	public void performLogin() {
+	public void performLogin()  throws InterruptedException  {
 		System.out.println("-----------user enters valid username, valid password and click on Login-------------");
 		String InputUsername = null, InputPassword = null;
 				
@@ -43,6 +44,12 @@ public class LaunchPage extends BasePage {
 		
 		userName.fill(InputUsername);
 		password.fill(InputPassword);
+		
+
+		long currDelay = rxNovaCommonUtils.RandomIntegerGenerator(30) * 1000;
+		System.out.println("SAMYU" + currDelay);
+		Thread.sleep(currDelay);
+		
 		loginButton.click();
 	}
 

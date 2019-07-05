@@ -42,7 +42,19 @@ public class ConditionsHomePage extends BasePage {
 		tmp.put("Conditions New", "//span[@class='ui-button-text'][contains(text(),'New')]");
 		tmp.put("Tags Table", "//div[@id='condition_form:tags_table']");
 		tmp.put("Results Panel", "//legend[contains(text(),'Results')]");
+		tmp.put("Condition Deleted Message", "//div[@id='success_message_form:j_idt193_content']");
 		ConditionsHomeMap = Collections.unmodifiableMap(tmp);
+	}
+	
+	public void mySelectFromDropdown(String input, String ObjKey) {
+		String ObjPath = ConditionsHomeMap.get(ObjKey);
+		WebElement currElement = getDriver().findElement(By.xpath(ObjPath));
+		rxNovaCommonUtil.selectFromDropdown(currElement, input);
+	}
+	
+	public void SendKeysToField(String input, String ObjKey) {
+		String ObjPath = ConditionsHomeMap.get(ObjKey);
+		$(ObjPath).sendKeys(input);
 	}
 	
 	public boolean IsTabProperlyDisplayed(String ChildObjKey) {
@@ -100,7 +112,6 @@ public class ConditionsHomePage extends BasePage {
 		return(hasContents);
 	}
 
-	
 	public boolean DropdownCheckContents(String expected, String ObjKey) {
 		String ObjPath = ConditionsHomeMap.get(ObjKey);
 		boolean hasContents = rxNovaCommonUtil.DropdownCheckContents(expected, ObjPath);
@@ -136,4 +147,5 @@ public class ConditionsHomePage extends BasePage {
 		boolean isDisabled = rxNovaCommonUtil.ObjectIsDisabled(ObjPath);
 		return(isDisabled);
 	}
+	
 }	
