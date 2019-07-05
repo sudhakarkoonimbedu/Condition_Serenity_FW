@@ -6,8 +6,7 @@ import org.junit.runner.RunWith;
 
 @RunWith(CucumberWithSerenity.class)
 @CucumberOptions(features= {
-		"src/test/resources/features/search_Single_Condition_Ready_to_use_status_Field.feature"		
+		"src/test/resources/features/Condition_Details_Tab_UI_Verification_Single_Condition.feature"		
 		},glue = { "com.project.teststeps" 
 		},plugin =  {"pretty","html:target/cucumber-html-report", "json:target/cucumber-json-report.json"})
-public class SearchRunner  {}
-
+public class ConditionDetailsRunner {}
