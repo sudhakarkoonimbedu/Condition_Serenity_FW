@@ -69,6 +69,16 @@ public class ConditionDetailsUIVerificationSteps {
 	@Then("^They enter the following header data and press \"(.*)\"$")
 	public void EnterRelevantHeaderData(String ObjKey, DataTable enterData) throws InterruptedException, Throwable {
 		actorOnConditionsDetailsPage.EnterRelevantHeaderData(ObjKey, enterData);
+		//create a specific function for this at the actor level, at which the hashmap will be accessed with relevant information
+		//in actor level, page objects can be included, i.e. the relevant strings necessary for a function can be included in the 
+		//variables of the actor code. This will enable more free-flowing feature files, and will allow less steps to be written in
+		//the feature file.
+		//the idea is to save the data that you generate, such that the condition that you create can be deleted. This deletion should also
+		//be automated. This gives you coverage of a later test case while also allowing you to keep the same data.
+		//Then you should be able to continue using the same fixed data every time you check that case, as you will be freeing that case
+		//from web app's memory pool. 
+		//The only item that requires random generation is the tracking id. All other aspects should be fixed, such that it is 
+		//easy to search for the created condition and delete it later on.
 	}
 	
 	@Then("^They enter the following details data and press \"(.*)\"$")
@@ -113,43 +123,11 @@ public class ConditionDetailsUIVerificationSteps {
 	
 	@Then("^They check if the \"(.*)\" is currently showing by checking for \"(.*)\" after creating a condition$")
 	public void verifyAssociationsDisplay(String ObjKey, String ChildObjKey) throws Throwable {
-		rxNovaCommonUtil.WaitForBusyIcon();
 		actorOnConditionsDetailsPage.verifyAssociationsDisplay(ObjKey, ChildObjKey);
 	}
 	
 	@Then("^They verify the messages at the bottom of the page$")
 	public void verifyMessages() throws Throwable {
 		actorOnConditionsDetailsPage.verifyMessages();
-	}
-	
-	@Then("^They check whether the Pre-Test is enabled after creating a condition$")
-	public void isPreTestEnabled() throws Throwable {
-		actorOnConditionsDetailsPage.isPreTestEnabled();
-	}
-	
-	@Then("^They verify whether \"(.*)\" properly displays \"(.*)\"$")
-	public void verifyPreTestMessages(String ObjKey, String expected) throws Throwable {
-		actorOnConditionsDetailsPage.verifyPreTestMessages(ObjKey, expected);
-	}
-	
-	@Then("^They check whether the \"(.*)\" is currently enabled and delete$")
-	public void PreTestObjectEnabled(String ObjKey) throws Throwable {
-		actorOnConditionsDetailsPage.PreTestObjectEnabled(ObjKey);
-	}
-	
-	@Then("^The user creates a condition with the following data$")
-	public void CreateCondition(DataTable conditionData) throws InterruptedException, Throwable {
-		actorOnConditionsDetailsPage.IsTabDisplayed("Header", "Tracking ID:");
-		actorOnConditionsDetailsPage.EnterRelevantHeaderData("Next", conditionData);
-		actorOnConditionsDetailsPage.IsTabDisplayed("Details", "Source:");
-		actorOnConditionsDetailsPage.EnterRelevantDetailsData("Next", conditionData);
-		actorOnConditionsDetailsPage.IsTabDisplayed("Tags/Notes", "Tags Panel");
-		actorOnConditionsDetailsPage.clickIfClickable("Conditions Tags/Notes Save");
-		waitForbusy();
-	}
-	
-	@Then("^The user searches conditions with the following data and deletes them$")
-	public void DeleteCondition(DataTable conditionData) throws Throwable {
-		actorOnConditionsDetailsPage.userDeletesCondition(conditionData);
 	}
 }

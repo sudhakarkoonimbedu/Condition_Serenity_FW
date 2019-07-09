@@ -6,12 +6,11 @@ import java.util.List;
 
 import com.project.common.util.RxNovaCommonUtil;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.Steps;
 
-import com.project.pages.ConditionsDetailsSinglePage;
+import com.project.pages.ConditionsDetailsPage;
 import com.project.pages.ConditionsHomePage;
 import com.psqframework.core.util.Verify;
 
@@ -24,7 +23,7 @@ public class ActorConditionsDetailsPage {
 	@Steps
 	RxNovaCommonUtil rxNovaCommonUtil;
 	@Steps
-	ConditionsDetailsSinglePage conditionsDetailsPage;
+	ConditionsDetailsPage conditionsDetailsPage;
 	@Steps 
 	ConditionsHomePage conditionsHomePage;
 	@Steps
@@ -51,10 +50,9 @@ public class ActorConditionsDetailsPage {
 		boolean isClickable = isFieldClickable(ObjKey);
 		if(isClickable == true) {
 			conditionsDetailsPage.performClick(ObjKey);
-			System.out.println("This is the click ObjKey: " + ObjKey);
 		}
 		else {
-			String ObjPath = ConditionsDetailsSinglePage.ConditionsHeaderMap.get(ObjKey);
+			String ObjPath = ConditionsDetailsPage.ConditionsHeaderMap.get(ObjKey);
 			WebElement currObj = conditionsDetailsPage.find(By.xpath(ObjPath));
 			rxNovaCommonUtil.waitFor(currObj);
 		}
@@ -146,25 +144,26 @@ public class ActorConditionsDetailsPage {
 		List<List<String>> data = enterData.raw();
 		String toEnter = "";
 		//enter source information
-		SelectFromDropdown(data.get(1).get(6), "Source:");
+		SelectFromDropdown(data.get(1).get(0), "Source:");
 		rxNovaCommonUtil.CheckBusyState();
 		//enter field name
-		toEnter = data.get(1).get(7);
+		toEnter = data.get(1).get(1);
 		System.out.println(toEnter);
-		String objpath = ConditionsDetailsSinglePage.ConditionsHeaderMap.get("Field Name:");
+		String objpath = ConditionsDetailsPage.ConditionsHeaderMap.get("Field Name:");
 		rxNovaCommonUtil.SelectValueFromFieldIntellisence(By.xpath(objpath), toEnter);
 		//enter operator information
-		toEnter = data.get(1).get(8);
+		toEnter = data.get(1).get(2);
 		SelectFromDropdown(toEnter, "Operator for Field");
 		//enter value information
-		toEnter = data.get(1).get(9);
+		toEnter = data.get(1).get(3);
 		conditionsDetailsPage.SendKeysToField(toEnter, "Value for Field");
 		clickIfClickable(ObjKey);
+
 	}
 	
 	@Step
 	public void EnteringTrackingIDforConditionDeletion(String ID, String ObjKey) throws InterruptedException, Throwable {
-		String ObjPath = ConditionsDetailsSinglePage.ConditionsHeaderMap.get("Conditions Header Delete Tracking ID");
+		String ObjPath = ConditionsDetailsPage.ConditionsHeaderMap.get("Conditions Header Delete Tracking ID");
 		rxNovaCommonUtil.sendKeysToObject(ObjPath, ID);
 		clickIfClickable(ObjKey);
 	}
@@ -177,9 +176,9 @@ public class ActorConditionsDetailsPage {
 	
 	@Step
 	public void verifyingOperatorField(String toEnter, String expected) throws Throwable {
-		String objpath = ConditionsDetailsSinglePage.ConditionsHeaderMap.get("Field Name:");
+		String objpath = ConditionsDetailsPage.ConditionsHeaderMap.get("Field Name:");
 		rxNovaCommonUtil.SelectValueFromFieldIntellisence(By.xpath(objpath), toEnter);
-		objpath = ConditionsDetailsSinglePage.ConditionsHeaderMap.get("Operator for Field");
+		objpath = ConditionsDetailsPage.ConditionsHeaderMap.get("Operator for Field");
 		boolean exist = rxNovaCommonUtil.DropdownCheckContents(expected, objpath);
 		assertTrue("Operator dropdown does not contain the correct contents", exist);
 	}
@@ -198,83 +197,72 @@ public class ActorConditionsDetailsPage {
 	
 	@Step
 	public void verifyingTableContents(String expected, String ObjKey) throws Throwable {
-		rxNovaCommonUtil.WaitForBusyIcon();
-		List<String> TableElementKeys = new ArrayList<String>(Arrays.asList(expected.split(",")));
-		
+		List<String> TableElementKeys = new ArrayList<String>();
+		TableElementKeys.add("Assoc Table App Type");
+		TableElementKeys.add("Assoc Table Customer Set");
+		TableElementKeys.add("Assoc Table ID");
+		TableElementKeys.add("Assoc Table Priority");
+		TableElementKeys.add("Assoc Table Start Date");
+		TableElementKeys.add("Assoc Table End Date");
 		
 		boolean correctContents = false;
 		boolean checkCorrectContents = true;
 		
 		for(String i : TableElementKeys) {
-			correctContents = conditionsDetailsPage.verifyingTableContents(i, ObjKey);
+			correctContents = conditionsDetailsPage.verifyingTableContents(expected, i);
 			if(correctContents == false) {
-				System.out.println("The table does not contain " + i);
+				System.out.println("The Associations table does not contain " + i);
 				checkCorrectContents = false;
 			}
 		}
 		
-		Verify.actualExpected(checkCorrectContents, true, ObjKey + " does not display correct contents");
-
+		if(checkCorrectContents == false) {
+			userDeletesCondition();
+			Verify.actualExpected(checkCorrectContents, true, ObjKey + " does not display correct contents");
+		}
+		else {
+			userDeletesCondition();
+		}
 	}
 	
 	@Step
-	public void userDeletesCondition(DataTable conditionData) throws Throwable {
-		List<List<String>> data = conditionData.raw();
-		clickIfClickable("Conditions Home Breadcrumb");
-		//select master customer set
-		System.out.println("These are the following data");
-		System.out.println("Master customer set: " + data.get(1).get(1));
-		System.out.println("Type: " + data.get(1).get(5));
-		System.out.println("Condition ID:" + data.get(1).get(2));
-		System.out.println("Name: " + data.get(1).get(3));
-		System.out.println("Status: " + data.get(1).get(4));
-		/////////////////////////////
-		conditionsHomePage.mySelectFromDropdown(data.get(1).get(1), "Master customer set:");
-		rxNovaCommonUtil.WaitForBusyIcon();
-		conditionsHomePage.mySelectFromDropdown(data.get(1).get(5), "Type:");
-		rxNovaCommonUtil.WaitForBusyIcon();
-		conditionsHomePage.SendKeysToField(data.get(1).get(2), "Condition ID:");
-		rxNovaCommonUtil.WaitForBusyIcon();
-		conditionsHomePage.SendKeysToField(data.get(1).get(3), "Name:");
-		rxNovaCommonUtil.WaitForBusyIcon();
-		conditionsHomePage.mySelectFromDropdown(data.get(1).get(4), "Status:");
-		rxNovaCommonUtil.WaitForBusyIcon();
-		clickIfClickable("Conditions Home Search");
-		rxNovaCommonUtil.WaitForBusyIcon();
-//		String ObjPath = ConditionsDetailsSinglePage.ConditionsHeaderMap.get("Conditions Header Delete");
-//		WebElement DeleteObj = conditionsDetailsPage.find(By.xpath(ObjPath));
-//		rxNovaCommonUtil.waitFor(DeleteObj);
-		clickIfClickable("Conditions Header Delete");
-		rxNovaCommonUtil.WaitForBusyIcon();
-		EnteringTrackingIDforConditionDeletion(data.get(1).get(0), "Conditions Header 2nd Delete");
-		rxNovaCommonUtil.WaitForBusyIcon();
-		String ObjPath = ConditionsHomePage.ConditionsHomeMap.get("Condition Deleted Message");
-		WebElement DeleteObj = conditionsHomePage.find(By.xpath(ObjPath));
+	public void userDeletesCondition() throws Throwable {
+		clickIfClickable("Conditions Header after Condition Creation");
+		String ObjPath = ConditionsDetailsPage.ConditionsHeaderMap.get("Conditions Header Delete");
+		WebElement DeleteObj = conditionsDetailsPage.find(By.xpath(ObjPath));
 		rxNovaCommonUtil.waitFor(DeleteObj);
+		clickIfClickable("Conditions Header Delete");
+		EnteringTrackingIDforConditionDeletion("123456789954621", "Conditions Header 2nd Delete");
+		ObjPath = ConditionsHomePage.ConditionsHomeMap.get("Condition Deleted Message");
+		DeleteObj = conditionsHomePage.find(By.xpath(ObjPath));
+		rxNovaCommonUtil.WaitForBusyIcon();
 	}
 	
 	@Step
 	public void isAssociationsEnabled() throws Throwable {
 		boolean isEnabled = conditionsDetailsPage.ObjectIsCurrentlyEnabled("Associations after Condition Creation");
-		Verify.actualExpected(isEnabled, true, "Associations is not currently enabled");
-	}
-	
-	@Step
-	public void isPreTestEnabled() throws Throwable {
-		boolean isEnabled = conditionsDetailsPage.ObjectIsCurrentlyEnabled("Pre-Test after Condition Creation");
-		Verify.actualExpected(isEnabled, true, "Pre-Test is not currently enabled");	
-		if(isEnabled == true) {
-			System.out.println("Pre-Test is currently enabled");
+		if(isEnabled == false) {
+			userDeletesCondition();
+			Verify.actualExpected(isEnabled, true, "Associations is not currently enabled");
+		}
+		else {
+			userDeletesCondition();
 		}
 	}
 	
 	@Step
 	public void verifyAssociationsDisplay(String ObjKey, String ChildObjKey) throws Throwable {
-		String ChildObjPath = ConditionsDetailsSinglePage.ConditionsHeaderMap.get(ChildObjKey);
+		String ChildObjPath = ConditionsDetailsPage.ConditionsHeaderMap.get(ChildObjKey);
 		WebElement ChildObj = conditionsDetailsPage.find(By.xpath(ChildObjPath));
 		rxNovaCommonUtil.waitFor(ChildObj);
 		boolean isTabDisplayed = rxNovaCommonUtil.IsTabProperlyDisplayed(ChildObjPath);
-		Verify.actualExpected(isTabDisplayed, true, "'" + ObjKey + "'" + " is not properly displayed");
+		if(isTabDisplayed == false) {
+			userDeletesCondition();
+			Verify.actualExpected(isTabDisplayed, true, "'" + ObjKey + "'" + " is not properly displayed");
+		}
+		else {
+			userDeletesCondition();
+		}
 	}
 	
 	@Step
@@ -288,33 +276,14 @@ public class ActorConditionsDetailsPage {
 		isMessageDisplayed = isMessageDisplayed && conditionsDetailsPage.TableMessageProperlyDisplayed(TableObj, "**Please view the Conditions Associations report for a full impact analysis.**");
 		if(isMessageDisplayed == false) {
 			System.out.println("Footnote for full impact analysis at bottom of Associations Table is not properly displayed");
+			userDeletesCondition();
+			Verify.actualExpected(isMessageDisplayed, true, "Messages below Associations Table are not properly displayed");
 		}
 		else {
 			System.out.println("Messages are properly displayed.");
+			userDeletesCondition();
 		}
-		Verify.actualExpected(isMessageDisplayed, true, "Messages below Associations Table are not properly displayed");
-	}
-	
-	@Step
-	public void verifyPreTestMessages(String ObjKey, String expected) throws Throwable {
-		boolean isContained = conditionsDetailsPage.ObjectContainsExpectedText(ObjKey, expected);
-		if(isContained == false) {
-			System.out.println("Condition(s) to be Evaluated panel does not display correct 'Please enter data for the following condition(s) to be evaluated:' message");
-		}
-		else {
-			System.out.println("Condition(s) to be Evaluated panel does display correct 'Please enter data for the following condition(s) to be evaluated:' message");
-		}
-		Verify.actualExpected(isContained, true, "Condition(s) to be Evaluated panel does not display correct 'Please enter data for the following condition(s) to be evaluated:' message");
-	}
-	
-	@Step
-	public void PreTestObjectEnabled(String ObjKey) throws Throwable {
-		boolean isEnabled = conditionsDetailsPage.ObjectIsCurrentlyEnabled(ObjKey);
-		if(isEnabled == false) {
-			Verify.actualExpected(isEnabled, true, ObjKey + " is not currently enabled");
-		}
-		else {
-			System.out.println(ObjKey + " is currently enabled");
-		}
+		
+		
 	}
 }

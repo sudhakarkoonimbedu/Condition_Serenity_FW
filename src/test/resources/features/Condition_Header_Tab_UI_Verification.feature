@@ -55,35 +55,35 @@ Examples:
  | Status: |
  | Type: |
  
-Scenario: Verify "Notes:" label in Header Panel
-Given They determine whether "Condition Header" is currently showing by checking for "Tracking ID:"
-Then They determine whether the "Notes:" is displayed in the Header panel
-
-Scenario: Verify Next and Cancel buttons in Header tab
-Given They determine whether "Condition Header" is currently showing by checking for "Tracking ID:"
-Then They check whether Next and Cancel buttons are displayed
-
-
-Scenario: Verifying Text Edit Fields in Header Panel
-Given They determine whether "Condition Header" is currently showing by checking for "Tracking ID:"
-Then They check if "Tracking ID:" displays
-Then They check if "Reason:" displays
-Then They check if "Condition ID:" displays
-Then They check if "Name:" displays
-Then They check if "Notes:" displays
-
-Scenario: Verify Master customer set drop down list in Header tab
-Given They determine whether "Condition Header" is currently showing by checking for "Tracking ID:"
-Then They should be able to view contents of "Master customer set:"
-
-Scenario: Verify prefix beside Condition ID edit field in Header tab
-Given They determine whether "Condition Header" is currently showing by checking for "Tracking ID:"
-Then User should be able to view the prefix "CD" in the "Condition ID prefix" field
-
-Scenario: Verify Status drop down list in Header tab
-Given They determine whether "Condition Header" is currently showing by checking for "Tracking ID:"
-Then User should be able to view "Not Ready,Ready for Use,Do Not Use Anymore" options for "Status:" dropdown
-
-Scenario: Verify Type drop down list in Header tab
-Given They determine whether "Condition Header" is currently showing by checking for "Tracking ID:" 
-Then User should be able to view "Single,Compound" options for "Type:" dropdown
+#Scenario: Verify "Notes:" label in Header Panel
+#Given They determine whether "Condition Header" is currently showing by checking for "Tracking ID:"
+#Then They determine whether the "Notes:" is displayed in the Header panel
+#
+#Scenario: Verify Next and Cancel buttons in Header tab
+#Given They determine whether "Condition Header" is currently showing by checking for "Tracking ID:"
+#Then They check whether Next and Cancel buttons are displayed
+#
+#
+#Scenario: Verifying Text Edit Fields in Header Panel
+#Given They determine whether "Condition Header" is currently showing by checking for "Tracking ID:"
+#Then They check if "Tracking ID:" displays
+#Then They check if "Reason:" displays
+#Then They check if "Condition ID:" displays
+#Then They check if "Name:" displays
+#Then They check if "Notes:" displays
+#
+#Scenario: Verify Master customer set drop down list in Header tab
+#Given They determine whether "Condition Header" is currently showing by checking for "Tracking ID:"
+#Then They should be able to view contents of "Master customer set:"
+#
+#Scenario: Verify prefix beside Condition ID edit field in Header tab
+#Given They determine whether "Condition Header" is currently showing by checking for "Tracking ID:"
+#Then User should be able to view the prefix "CD" in the "Condition ID prefix" field
+#
+#Scenario: Verify Status drop down list in Header tab
+#Given They determine whether "Condition Header" is currently showing by checking for "Tracking ID:"
+#Then User should be able to view "Not Ready,Ready for Use,Do Not Use Anymore" options for "Status:" dropdown
+#
+#Scenario: Verify Type drop down list in Header tab
+#Given They determine whether "Condition Header" is currently showing by checking for "Tracking ID:" 
+#Then User should be able to view "Single,Compound" options for "Type:" dropdown

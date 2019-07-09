@@ -40,51 +40,83 @@ When They enter the following header data and press "Next"
  | Tracking ID       | Master customer set       | Condition ID   | Name        | Status          | Type     |
  |	123456789954621  | Argus Master Customer Set |  00100461      | Samyu       | Ready for Use   | Compound | 
 
-Scenario Outline: Verify the Compound Operator, Condition ID labels
-Given They ensure that they are on "Details" by checking for "Compound Operator:"
-Then They check whether "<label>" is displayed in the Details Panel
+Scenario Outline: Navigate to Condition Details Tab
+Given User is on Condition Header tab
+When Provide required data and click on Next button
+ | Tracking ID   | Master customer set   | Condition ID   | Name      | Status   | Type   |
+ | <Tracking_ID> | <Master_customer_set> | <Condition_ID> | <CD_name> | <status> | <type> | 
+Then Condition Details <tab> should display
 
-Examples:
- | label |
- | Compound Operator |
- | Condition ID |
+Examples: 
+|Tracking_ID  | Master_customer_set   | Condition_ID   | CD_name  |status       |type       |
+|123456789456 | <Master_customer_set> | <Condition_ID> |<CD_name> |<status>     |Compound   |
+
+
+Scenario: Verify the Compound Operator, Condition ID labels
+Given User is on Conditions Details Tab
+When verify Compound Operator, Condition ID labels
+Then Compound Operator, Condition ID labels should display
+
+@ConditionDetailsTabUserInterface7
 
 Scenario: Verify the Compound Operator dropdown list
-Given They ensure that they are on "Details" by checking for "Compound Operator:"
-Then They determine whether the "Compound Operator:" dropdown list contains "AND,OR" options
+
+Given User is on Conditions Details Tab
+When verify Compound Operator dropdown list
+Then Compound Operator dropdown list should display the items "OR", "AND"
+
+@ConditionDetailsTabUserInterface8
 
 Scenario: Verify prefix beside Condition ID edit field
-Given They ensure that they are on "Details" by checking for "Compound Operator:"
-Then prefix "CD" should display beside "Condition ID CD" edit field
+
+Given User is on Conditions Details Tab
+When verify Condition ID prefix
+Then prefix CD should display beside Condition ID edit field
+
+@ConditionDetailsTabUserInterface9
 
 Scenario: Verify Add button
-Given They ensure that they are on "Details" by checking for "Compound Operator:"
-Then They ensure that "Add Button" is displayed
+
+Given User is on Conditions Details Tab
+When verify Add button
+Then Add button should display
+
+@ConditionDetailsTabUserInterface10
 
 Scenario: Verify Compound conditions table
-Given They ensure that they are on "Details" by checking for "Compound Operator:"
-Then They ensure that "Condition ID,Condition Name" are shown for "Condition Table"
+
+Given User is on Conditions Details Tab
+When verify Compound conditions table
+Then Compound conditions table should display the columns Condition ID and Condition Name
+
+@ConditionDetailsTabUserInterface11
 
 Scenario: Verify the checkbox in Compound conditions table
-Given They ensure that they are on "Details" by checking for "Compound Operator:"
-Then They ensure that "Condition Table Checkbox" is displayed
+
+Given User is on Conditions Details Tab
+When verify checkbox in Compound conditions table
+Then checkbox should display before the columns Condition ID and Condition Name
+
+@ConditionDetailsTabUserInterface12
 
 Scenario: Verify the message "Conditions Included In Compound" in Compound conditions table
-Given They ensure that they are on "Details" by checking for "Compound Operator:"
-Then They ensure that "Conditions Included In Compound" is displayed
 
-Scenario: Verify the Remove Selected button in Compound conditions table
-Given They ensure that they are on "Details" by checking for "Compound Operator:"
-Then  They ensure that "Remove Selected" is disabled by default
+Given User is on Conditions Details Tab
+When verify the message
+Then message "Conditions Included In Compound" should display in Compound conditions table
 
-Scenario: Verify the display of Upper Previous, Next and Cancel buttons
-Given They ensure that they are on "Details" by checking for "Compound Operator:"
-Then They ensure that "PreviousU" is displayed
-Then They ensure that "NextU" is displayed
-Then They ensure that "CancelU" is displayed
+@ConditionDetailsTabUserInterface13
 
-Scenario: Verify the display of Lower Previous, Next and Cancel buttons
-Given They ensure that they are on "Details" by checking for "Compound Operator:"
-Then They ensure that "PreviousD" is displayed
-Then They ensure that "NextD" is displayed
-Then They ensure that "CancelD" is displayed
+Scenario: Verify the Remove Selected buton in Compound conditions table
+
+Given User is on Conditions Details Tab
+When verify the  Remove Selected buton
+Then  Remove Selected buton should be disabled by default
+
+@ConditionDetailsTabUserInterface14
+
+Scenario: Verify the display of Previous, Next and Cancel buttons
+
+Given user is on Conditions Details Tab
+When verify Previous, Next and Cancel buttons
+Then Previous, Next and Cancel buttons should display at the top right corner and bottom right corner in Details tab
