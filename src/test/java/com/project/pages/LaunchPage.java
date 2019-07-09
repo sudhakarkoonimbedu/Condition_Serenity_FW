@@ -46,9 +46,9 @@ public class LaunchPage extends BasePage {
 		password.fill(InputPassword);
 		
 
-		long currDelay = rxNovaCommonUtils.RandomIntegerGenerator(30) * 1000;
-		System.out.println("SAMYU" + currDelay);
-		Thread.sleep(currDelay);
+//		long currDelay = rxNovaCommonUtils.RandomIntegerGenerator(30) * 1000;
+//		System.out.println(currDelay);
+//		Thread.sleep(currDelay);
 		
 		loginButton.click();
 	}

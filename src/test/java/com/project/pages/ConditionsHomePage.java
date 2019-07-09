@@ -46,10 +46,11 @@ public class ConditionsHomePage extends BasePage {
 		ConditionsHomeMap = Collections.unmodifiableMap(tmp);
 	}
 	
-	public void mySelectFromDropdown(String input, String ObjKey) {
+	public void mySelectFromDropdown(String input, String ObjKey) throws InterruptedException {
 		String ObjPath = ConditionsHomeMap.get(ObjKey);
 		WebElement currElement = getDriver().findElement(By.xpath(ObjPath));
 		rxNovaCommonUtil.selectFromDropdown(currElement, input);
+		rxNovaCommonUtil.CheckBusyState();
 	}
 	
 	public void SendKeysToField(String input, String ObjKey) {
