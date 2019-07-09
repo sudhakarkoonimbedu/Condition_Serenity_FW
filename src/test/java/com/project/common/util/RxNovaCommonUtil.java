@@ -879,6 +879,8 @@ public void navigateToRxNovaApplication()
 	}
 
 	public boolean ObjectContainsExpectedText(String ObjPath, String expectedDisplay) {
+		System.out.println("The following are the text strings contained in the WebElement of the following xpath: " + ObjPath);
+		System.out.println($(ObjPath).getText());
 		boolean containsExpected = $(ObjPath).getText().contains(expectedDisplay);
 		return(containsExpected);
 	}

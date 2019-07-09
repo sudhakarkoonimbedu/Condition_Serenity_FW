@@ -25,7 +25,7 @@ public class ActorConditionsHomePage {
 	}
 	
 	@Step
-	public void SelectFromDropdown(String input, String ObjKey) {
+	public void SelectFromDropdown(String input, String ObjKey) throws InterruptedException {
 		conditionsHomePage.mySelectFromDropdown(input, ObjKey);
 	}
 	

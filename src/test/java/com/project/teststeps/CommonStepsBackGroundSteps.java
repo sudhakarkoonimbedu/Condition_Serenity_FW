@@ -67,8 +67,8 @@ public class CommonStepsBackGroundSteps {
 		actorOnConditionsDetailsPage.EnteringTrackingIDforConditionDeletion(ID, ObjKey);
 	}
 	
-	@Then("^User deletes Condition$") 
-	public void userDeletesCondition() throws Throwable {
-		actorOnConditionsDetailsPage.userDeletesCondition();
-	}
+//	@Then("^User deletes Condition$") 
+//	public void userDeletesCondition() throws Throwable {
+//		actorOnConditionsDetailsPage.userDeletesCondition();
+//	}
 }
