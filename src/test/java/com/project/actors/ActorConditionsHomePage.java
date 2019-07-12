@@ -97,8 +97,14 @@ public class ActorConditionsHomePage {
 	}
 	
 	@Step
-	public void IsTabDisplayed(String ObjKey, String ChildObjKey) {
+	public void IsTabDisplayed(String ObjKey, String ChildObjKey) throws InterruptedException {
 		boolean isTabDisplayed = conditionsHomePage.IsTabProperlyDisplayed(ChildObjKey);
+		String styleLoad = "";
+		while(isTabDisplayed == false && !styleLoad.contains("none;")) {
+			styleLoad = rxNovaCommonUtil.CheckBusyState();
+			isTabDisplayed = conditionsHomePage.IsTabProperlyDisplayed(ChildObjKey);
+		}
+		rxNovaCommonUtil.WaitForBusyIcon();
 		assertTrue("'" + ObjKey + "'" + " is not displayed", isTabDisplayed);
 	}
 	

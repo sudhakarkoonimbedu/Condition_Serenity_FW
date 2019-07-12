@@ -14,7 +14,7 @@ public class ConditionDetailsCompoundUIVerificationSteps {
 	RxNovaCommonUtil rxNovaCommonUtil;
 	
 	@Then("^They ensure that they are on \"(.*)\" by checking for \"(.*)\"$")
-	public void isTabDisplayed(String ObjKey, String ChildObjKey) {
+	public void isTabDisplayed(String ObjKey, String ChildObjKey) throws InterruptedException {
 		actorOnConditionsDetailsCompPage.IsTabDisplayed(ObjKey, ChildObjKey);
 	}
 	
