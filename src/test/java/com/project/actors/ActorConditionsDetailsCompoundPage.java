@@ -21,14 +21,8 @@ public class ActorConditionsDetailsCompoundPage {
 	@Steps
 	ActorConditionsHomePage actorOnConditionsHomePage;
 	
-	public void IsTabDisplayed(String ObjKey, String ChildObjKey) throws InterruptedException {
+	public void IsTabDisplayed(String ObjKey, String ChildObjKey) {
 		boolean isDisplayed = conditionsDetailsCompoundPage.IsTabProperlyDisplayed(ChildObjKey);
-		String styleLoad = "";
-		while(isDisplayed == false && !styleLoad.contains("none;")) {
-			styleLoad = rxNovaCommonUtil.CheckBusyState();
-			isDisplayed = conditionsDetailsCompoundPage.IsTabProperlyDisplayed(ChildObjKey);
-		}
-		rxNovaCommonUtil.WaitForBusyIcon();
 		Verify.actualExpected(isDisplayed, true, ObjKey + " is not properly displayed");
 	}
 	

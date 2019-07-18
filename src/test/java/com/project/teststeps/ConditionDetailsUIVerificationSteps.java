@@ -72,8 +72,8 @@ public class ConditionDetailsUIVerificationSteps {
 	}
 	
 	@Then("^They enter the following details data and press \"(.*)\"$")
-	public void EnterRelevantDetailsDataFewerFields(String ObjKey, DataTable enterData) throws Throwable {
-		actorOnConditionsDetailsPage.EnterRelevantDetailsDataFewerFields(ObjKey, enterData);
+	public void EnterRelevantDetailsData(String ObjKey, DataTable enterData) throws Throwable {
+		actorOnConditionsDetailsPage.EnterRelevantDetailsData(ObjKey, enterData);
 	}
 	
 	@Then("^They determine whether the following \"([^\"]*)\" are displayed in the Details panel$")

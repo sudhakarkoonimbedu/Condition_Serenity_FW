@@ -84,12 +84,9 @@ public class ActorConditionsDetailsPage {
 	@Step
 	public void IsTabDisplayed(String ObjKey, String ChildObjKey) throws InterruptedException {
 		boolean isTabDisplayed = conditionsDetailsPage.IsTabProperlyDisplayed(ChildObjKey);
-		String styleLoad = "";
-		while(isTabDisplayed == false && !styleLoad.contains("none;")) {
-			styleLoad = rxNovaCommonUtil.CheckBusyState();
-			isTabDisplayed = conditionsDetailsPage.IsTabProperlyDisplayed(ChildObjKey);
+		if(isTabDisplayed == true) {
+			rxNovaCommonUtil.CheckBusyState();
 		}
-		rxNovaCommonUtil.WaitForBusyIcon();
 		Verify.actualExpected(isTabDisplayed, true, "'" + ObjKey + "'" + " is not Displayed");
 	}
 	
@@ -146,49 +143,6 @@ public class ActorConditionsDetailsPage {
 	
 	@Step
 	public void EnterRelevantDetailsData (String ObjKey, DataTable enterData) throws Throwable {
-		List<List<String>> data = enterData.raw();
-		String toEnter = "";
-		//enter source information
-		SelectFromDropdown(data.get(1).get(6), "Source:");
-		rxNovaCommonUtil.CheckBusyState();
-		//enter field name
-		toEnter = data.get(1).get(7);
-		System.out.println(toEnter);
-		String objpath = ConditionsDetailsSinglePage.ConditionsHeaderMap.get("Field Name:");
-		rxNovaCommonUtil.SelectValueFromFieldIntellisence(By.xpath(objpath), toEnter);
-		//enter operator information
-		toEnter = data.get(1).get(8);
-		SelectFromDropdown(toEnter, "Operator for Field");
-		//enter value information
-		toEnter = data.get(1).get(9);
-		conditionsDetailsPage.SendKeysToField(toEnter, "Value for Field");
-		clickIfClickable(ObjKey);
-	}
-	
-	@Step
-	public void EnterRelevantDetailsDataFewerFields (String ObjKey, DataTable enterData) throws Throwable {
-		List<List<String>> data = enterData.raw();
-		String toEnter = "";
-		//enter source information
-		SelectFromDropdown(data.get(1).get(0), "Source:");
-		rxNovaCommonUtil.CheckBusyState();
-		//enter field name
-		toEnter = data.get(1).get(1);
-		System.out.println(toEnter);
-		String objpath = ConditionsDetailsSinglePage.ConditionsHeaderMap.get("Field Name:");
-		rxNovaCommonUtil.SelectValueFromFieldIntellisence(By.xpath(objpath), toEnter);
-		//enter operator information
-		toEnter = data.get(1).get(2);
-		SelectFromDropdown(toEnter, "Operator for Field");
-		//enter value information
-		toEnter = data.get(1).get(3);
-		conditionsDetailsPage.SendKeysToField(toEnter, "Value for Field");
-		clickIfClickable(ObjKey);
-	}
-	
-	
-	@Step
-	public void EnterRelevantDetailsDataFewFields (String ObjKey, DataTable enterData) throws Throwable {
 		List<List<String>> data = enterData.raw();
 		String toEnter = "";
 		//enter source information

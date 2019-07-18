@@ -1,21 +1,32 @@
 package com.project.common.util;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import java.util.Random;
+import java.util.Scanner;
 import java.util.Set;
 import java.util.StringTokenizer;
+import java.net.*;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.seleniumhq.jetty9.util.StringUtil;
 
@@ -32,12 +43,42 @@ public class RxNovaCommonUtil extends BasePage{
 	private String RxNova_URL;		
 	public static boolean isProduction;
 	
+	//  common place holder for downloading Reports ( used with Drug List report Download)
+	//  public static String downloadFilepath1 = System.getProperty("user.dir") + "\\target\\DownloadedReport";
+    //	public static String downloadFilepath1 = Project.Env.downloadDrugListReport();
+    //	public static String copydownloadFilepath1 = Project.Env.CopyFolderDrugListReport();
+	
+	
 	public void NavigateApplicationMenu(String strAppMenu) throws InterruptedException
 	{
 		
 		Thread.sleep(2000);
 		
+		/*try
+		{
+		Thread.sleep(2000);
+		if(!driver.findElement(By.className("argusLogoRebrand")).isDisplayed())
+		{
+			System.out.println("**************************** In refresh mode ****************************" + strAppMenu);
+			driver.navigate().refresh();
+			Thread.sleep(10000);
+		}
+		}catch(NoSuchFrameException s)
+		{
+			System.out.println("**************************** NoSuchFrameException - In refresh mode ****************************" + strAppMenu);
+			driver.navigate().refresh();
+			Thread.sleep(10000);
+		}		
+		catch(Exception e)
+		{
+			System.out.println("**************************** Exception - In refresh mode ****************************" + strAppMenu);
+			driver.navigate().refresh();
+			Thread.sleep(10000);
+		}
+		*/
+		
 		Set<String> handles = getDriver().getWindowHandles();
+		//Sreenu Added Recovery for Application Error
 		for(String s: handles)
 		{						
 			if(getDriver().switchTo().window(s).getTitle().contains("Application Error"))
@@ -64,6 +105,8 @@ public class RxNovaCommonUtil extends BasePage{
 			    	if (v.getText().equals(arrApplication[i]))
 			    	{
 			    		v.click();
+			    		//System.out.println("Clicked on link -" + v.getText());
+			    		//LOGGER.info("***********Clicked on link **************" + v.getText());
 			    		getDriver().manage().window().maximize();
 			    		Thread.sleep(500);
 			    		intCounter++;
@@ -95,6 +138,8 @@ public class RxNovaCommonUtil extends BasePage{
 		{
 			SelectApp = strAppName.trim();	
 		}
+		
+		//Sreenu Added Recovery for Application Error
 				for(String s: handles)
 				{						
 					if(getDriver().switchTo().window(s).getTitle().contains("Application Error"))
@@ -121,6 +166,79 @@ public class RxNovaCommonUtil extends BasePage{
 		{
 			System.out.println("No Application page with name : '" + SelectApp + "' was found");
 		}	
+	}
+	
+	
+	public void SetTextOnEdit(By objElementName, String strValue) throws Throwable
+	{
+		Boolean boolSetTextOnEdit=false;	
+		int attempt = 0;
+		while(attempt < 3)
+		{
+			try
+			{
+				if(getDriver().findElements(objElementName).size()!=0 && StringUtil.isNotBlank(strValue))
+				{
+					String strName = getDriver().findElement(objElementName).getAttribute("name");
+					getDriver().findElement(objElementName).sendKeys(strValue);
+					boolSetTextOnEdit=true;
+					System.out.println("Set text on webelement : " + strName + " Value :" + strValue );
+					break;
+				}
+			}catch(Exception e){				
+			}
+			attempt++;
+		}
+		
+		if(boolSetTextOnEdit==false)
+		{
+			System.out.println("Webelement with name  : '" + getDriver().findElement(objElementName).getAttribute("name") + "' was found");
+		}
+		
+	}
+
+
+	public void SelectItemFromWebList(By objElementName, String strValue) throws InterruptedException, NoSuchElementException
+	{
+		Boolean boolSelectItemFromWebList=false;
+		try
+		{
+			if(getDriver().findElements(objElementName).size()!=0 && StringUtil.isNotBlank(strValue))
+			{
+				Select itemstoSelect =new Select(getDriver().findElement(objElementName));
+				System.out.println("inside SelectItemFromWebList ");
+				String strName = getDriver().findElement(objElementName).getAttribute("name");
+				itemstoSelect.selectByVisibleText(strValue);			
+				boolSelectItemFromWebList = true;
+				System.out.println("Selected item in webelement : " + strName + " Value :" + strValue );
+			}
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+			try{
+			if(getDriver().findElements(objElementName).size()!=0 && StringUtil.isNotBlank(strValue))
+			{
+				Select itemstoSelect =new Select(getDriver().findElement(objElementName));
+				String strName = getDriver().findElement(objElementName).getAttribute("name");
+				List<WebElement> allOptions = itemstoSelect.getOptions();
+				for(WebElement i:allOptions){
+					//System.out.println(i.getText());
+					if(i.getText().equalsIgnoreCase(strValue)){
+						String tvalue = i.getText();
+						itemstoSelect.selectByVisibleText(tvalue);
+						boolSelectItemFromWebList = true;
+						System.out.println("Selected item in webelement : " + strName + " Value :" + strValue );
+						break;
+					}
+				}				
+			}
+			}catch(Exception s){
+			}
+		}
+		
+		if(boolSelectItemFromWebList==false)
+		{
+			System.out.println("Webelement with name  : '" + getDriver().findElement(objElementName).getAttribute("name") + "' was not found");
+		}
 	}
 	
 
@@ -188,6 +306,8 @@ public class RxNovaCommonUtil extends BasePage{
 	}
 	
 	
+	
+	
 	public void GetBusyStatus() throws Throwable 
 	{
 		try
@@ -251,7 +371,13 @@ public class RxNovaCommonUtil extends BasePage{
 		}*/	
 		
 	}
-
+	
+	public void ReadProp() throws IOException
+	{
+		FileInputStream f1= new FileInputStream(System.getProperty("user.dir") + "\\Resource\\RxNovaSettings.properties");
+		System.out.println(System.getProperty("user.dir") + "\\Resource\\RxNovaSettings.properties");
+		pf.load(f1);		
+	}	
 	
 	public boolean CheckElementPresenceByLocator(By LocatorValue) throws Throwable
 	{
@@ -376,6 +502,7 @@ public class RxNovaCommonUtil extends BasePage{
 	}
 	
 	
+	
 	public void SelectValueFromFieldIntellisence(By objElementName, String strValue) throws Throwable
 	{
 		Boolean boolSelectValueFromFieldIntellisence=false;
@@ -409,6 +536,39 @@ public class RxNovaCommonUtil extends BasePage{
 	}
 	
 	
+	public void ClickOnImage(By objElementName) throws InterruptedException
+	{
+		Boolean boolClickOnImage = false;
+		
+		int attempts = 0;
+		while(attempts < 3)
+		{
+			try
+			{
+				if(getDriver().findElements(objElementName).size()!=0)
+				{
+					String strName =getDriver().findElement(objElementName).getAttribute("name");
+					getDriver().findElement(objElementName).click();
+					Thread.sleep(2000);
+					boolClickOnImage = true;
+					System.out.println("Clicked on Image : " + strName);
+					break;
+				}				
+			}
+			catch(StaleElementReferenceException e){				
+			}
+			attempts++;			
+		}
+		
+		
+		
+		if(boolClickOnImage==false)
+		{
+			System.out.println("Webelement with name  : '" + getDriver().findElement(objElementName).getAttribute("name") + "' was not found");
+		}
+	}
+	
+	
 	public void CheckPageLoad() throws InterruptedException
 	{
 		if(!getDriver().findElement(By.id("contentFrame")).isDisplayed()) 
@@ -433,7 +593,38 @@ public class RxNovaCommonUtil extends BasePage{
 		System.out.println("time difference is " + timedifference/1000);		
 	}
 	
-	public String CheckBusyState() throws InterruptedException {
+	
+	public static void deleteFolder(File folder) {
+	    File[] files = folder.listFiles();
+	    if(files!=null) { //some JVMs return null for empty dirs
+	        for(File f: files) {
+	            if(f.isDirectory()) {
+	                deleteFolder(f);
+	            } else {	            	
+	                f.delete();
+	            }
+	        }
+	    }
+	    folder.delete();	    
+	}
+	
+	
+	
+	public static String ReadFolder(File folder) {
+	    File[] files = folder.listFiles();
+	    if(files!=null) { //some JVMs return null for empty dirs
+	        for(File f: files) {
+	        	 System.out.println(f.getName());
+	        	 System.out.println(f.getPath());
+	        	// System.out.println(f.getPath() + "\\" + f.getName());
+	        	 return f.getPath();
+	        }
+	    }
+		return null;
+	}
+	
+	
+	public void CheckBusyState() throws InterruptedException {
 		Thread.sleep(1000);
 		WebElement BusyElement = getDriver().findElement(By.id("loading"));
 
@@ -452,8 +643,6 @@ public class RxNovaCommonUtil extends BasePage{
 				e.printStackTrace();
 			}
 		}
-		
-		return(BusyElement.getAttribute("style"));
 	}
 
 	
@@ -552,6 +741,38 @@ public class RxNovaCommonUtil extends BasePage{
 			getDriver().switchTo().frame("contentFrame");
 		}
 	}	
+	
+
+	// Read all the content of text file - Used with BSC DRUGList Reporting Project
+	public Scanner readTextContent(String strFilePath) throws FileNotFoundException {
+		File myFile = new File(strFilePath);
+		Scanner sc = new Scanner(myFile);		
+		sc.useDelimiter("\\Z");		
+	//	System.out.println(sc.next());
+		return sc;
+	}
+	
+	
+	// Commonly used to copy files between locations
+	private static void copyFileUsingApacheCommonsIO(File source, File dest) throws IOException {
+	    FileUtils.copyFile(source, dest);
+	}
+
+
+	public void deleteFile(String fileToDelete) {
+		String thisfileToDelete= fileToDelete.replace(" ", "_");
+		File file = new File(thisfileToDelete);
+		if(file.delete()) 
+        { 
+            System.out.println("File deleted successfully at location - " + thisfileToDelete); 
+        } 
+        else
+        { 
+            System.out.println("Failed to delete the file at location - " + thisfileToDelete + "File may not exists for deletion "); 
+        } 
+		
+	}
+
 
 	public String renameFile(String fileToRename) throws InterruptedException {
 		Thread.sleep(8000);
@@ -584,11 +805,10 @@ public class RxNovaCommonUtil extends BasePage{
 	public static int numBrowsers = 0;
 	
 	public int LaunchRandomizerInt() {
-		//function used to randomize login actions when multiple browsers are run in parallel.
 		return(++numBrowsers);
 	}
 	
-	public void navigateToRxNovaApplication() 
+public void navigateToRxNovaApplication() 
 	{			
 		System.out.println("-----------Open firefox and start RxNova Application-------------");				
 		try
@@ -667,32 +887,17 @@ public class RxNovaCommonUtil extends BasePage{
 
 	public boolean checkCurrentFieldDisplay(String ObjPath, String expectedDisplay) {
 		String currText = $(ObjPath).getText();
-		System.out.println("This is the current xpath " + "... " + ObjPath + " following is current text display of object.");
-		System.out.println(currText);
-		System.out.println("___________________________________________________________");
 		boolean match = false;
 		if(currText.isEmpty()) {
 			match = true;
 		}
-		if(match == true) {
-			System.out.println(ObjPath + " xpath has correct expected text display.");
-		}
-		else {
-			System.out.println(ObjPath + " xpath does not have correct expected text display.");
-		}
+		
 		return(match);
 	}
 	
 	public boolean MCScheckContents(String ObjPath) {
-		System.out.println("Checking whether Master Customer Set dropdown contains list ...");
 		List<String> options = $(ObjPath).getSelectOptions();
 		boolean hasContents = options.size() > 1;
-		if(hasContents == true) {
-			System.out.println("Master Customer Set dropdown has more than one option; thusly it is considered to be valid.");
-		}
-		else {
-			System.out.println("Master Customer Set dropdown has either only default option or has no options in its dropdown list");
-		}
 		return(hasContents);
 	}
 
@@ -745,30 +950,20 @@ public class RxNovaCommonUtil extends BasePage{
 	}
 	
 	public boolean isFieldClickable(String ObjPath) {
-		System.out.println("Element associated with this xpath is clickable ..." + "...xpath = " + ObjPath);
 		return($(ObjPath).isClickable());
 	}
 	
 	public void performClick(String ObjPath) {
-		System.out.println("Element associated with this xpath will be clicked on ..." + "...xpath = " + ObjPath);
 		$(ObjPath).click();
 	}
 	
 	public boolean ObjectIsDisabled(String ObjPath) {
-		System.out.println("Determining whether object of following xpath is disabled: " + "...xpath = " + ObjPath);
 		String isDisabled = $(ObjPath).getAttribute("class");
 		boolean disabled = false;
 		if(isDisabled.contains("disabled"))
 		{
 			disabled = true;
 		}
-		if(disabled == true) {
-			System.out.println(ObjPath + " xpath object is disabled");
-		}
-		else {
-			System.out.println(ObjPath + " xpath object is enabled");
-		}
-		
 		return(disabled);	
 	}
 	

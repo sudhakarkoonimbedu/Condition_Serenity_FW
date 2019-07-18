@@ -27,6 +27,7 @@ Legend for WebElements:
 "Details" -- Details tab when New Button is clicked
 __________________________________________________________________________________________________________
 
+##Complete Individual Cases first before coming to this one; you may get the coverage needed from those cases itself and these ones may be irrelevant
 Background:
 Given User opens the browser and goes to RxNova URL
 When They enter valid username, valid password and click on Login
@@ -42,6 +43,12 @@ When They enter the following header data and press "Next"
 
 Scenario: Ensuring Default Enable of Header Tab
 Then They check whether the "Conditions Header" is currently enabled
+
+Scenario: Ensuring Enable of Tabs When Clicked
+When They click "Details" 
+Then They check whether the "Details" is currently enabled
+When They click "Tags/Notes"
+When They check whether the "Tags/Notes" is currently enabled
 
 Scenario: Ensuring Disable of Tabs
 Then They check if "Pre-Test" is disabled

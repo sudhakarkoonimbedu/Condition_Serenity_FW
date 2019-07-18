@@ -40,9 +40,6 @@ public class ConditionsHomePage extends BasePage {
 		tmp.put("Conditions Search", "//span[contains(text(),'Search')]");
 		tmp.put("Conditions Reset", "//span[contains(text(),'Reset')]");
 		tmp.put("Conditions New", "//span[@class='ui-button-text'][contains(text(),'New')]");
-		tmp.put("Reporting", "//em[contains(text(),'Reporting')]");
-		tmp.put("Field Admin", "//em[contains(text(),'Field Admin')]");
-		tmp.put("Mass Change", "//em[contains(text(),'Mass Change')]");
 		tmp.put("Tags Table", "//div[@id='condition_form:tags_table']");
 		tmp.put("Results Panel", "//legend[contains(text(),'Results')]");
 		tmp.put("Condition Deleted Message", "//div[@id='success_message_form:j_idt193_content']");
