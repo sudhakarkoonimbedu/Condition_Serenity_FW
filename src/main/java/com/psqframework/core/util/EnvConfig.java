@@ -20,7 +20,5 @@ public interface EnvConfig extends Config {
 	String userPassword();
 	
 	String region();
-
-
 	
 }

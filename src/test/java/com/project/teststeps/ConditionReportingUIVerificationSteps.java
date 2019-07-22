@@ -65,6 +65,21 @@ public class ConditionReportingUIVerificationSteps {
 		actorOnConditionsReportingPage.checkingItemsInAssociationsCriteria();
 	}
 	
+	@Then("^They check whether all of the correct fields are showing in the Entity Panel$")
+	public void checkingItemsInEntityCriteria() throws InterruptedException {
+		actorOnConditionsReportingPage.checkingItemsInEntityCriteria();
+	}
+	
+	@Then("^They check whether all of the correct fields are showing in the Field Admin Usage Panel$")
+	public void checkingItemsInFieldAdminUsageCriteria() throws InterruptedException {
+		actorOnConditionsReportingPage.checkingItemsInFieldAdminUsageCriteria();
+	}
+	
+	@Then("^They check whether all of the correct fields are showing in the Sample Claim Test Data Criteria Panel$")
+	public void checkingItemsInSampleClaimTestDataCriteria() throws InterruptedException {
+		actorOnConditionsReportingPage.checkingItemsInSampleClaimTestDataCriteria();
+	}
+	
 	@Then("^They determine whether the \"(.*)\" prefix shows up in front of \"(.*)\" field$")
 	public void checkPrefix(String prefix, String ObjKey) {
 		actorOnConditionsReportingPage.checkPrefix(prefix, ObjKey);

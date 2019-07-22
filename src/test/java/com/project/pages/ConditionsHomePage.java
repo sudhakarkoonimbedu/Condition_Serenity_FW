@@ -23,7 +23,7 @@ public class ConditionsHomePage extends BasePage {
 		Map<String, String> tmp = new ConcurrentHashMap<String, String>();
 		tmp.put("Condition Home Icon", "//a[@id='breadCrumbForm:j_idt51']");
 		tmp.put("Condition Home Breadcrumb", "//a[@id='breadCrumbForm:j_idt52']");
-		tmp.put("Condition Home", "//em[contains(text(),'Condition Home')]");
+		tmp.put("Condition Home", "/html[1]/body[1]/div[3]/div[3]/div[1]/div[3]/div[1]/ul[1]/li[1]/a[1]/em[1]");
 		tmp.put("Master customer set:", "//select[@id='condition_form:condition_masterCustormerSet']");
 		tmp.put("Type:", "//select[@id='condition_form:j_idt208']");
 		tmp.put("Condition ID:", "//input[@id='condition_form:condition_id']");
@@ -40,6 +40,9 @@ public class ConditionsHomePage extends BasePage {
 		tmp.put("Conditions Search", "//span[contains(text(),'Search')]");
 		tmp.put("Conditions Reset", "//span[contains(text(),'Reset')]");
 		tmp.put("Conditions New", "//span[@class='ui-button-text'][contains(text(),'New')]");
+		tmp.put("Reporting", "//em[contains(text(),'Reporting')]");
+		tmp.put("Field Admin", "//em[contains(text(),'Field Admin')]");
+		tmp.put("Mass Change", "//em[contains(text(),'Mass Change')]");
 		tmp.put("Tags Table", "//div[@id='condition_form:tags_table']");
 		tmp.put("Results Panel", "//legend[contains(text(),'Results')]");
 		tmp.put("Condition Deleted Message", "//div[@id='success_message_form:j_idt193_content']");

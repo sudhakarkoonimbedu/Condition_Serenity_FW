@@ -72,6 +72,43 @@ public class ActorConditionsReportingPage {
 	}
 	
 	@Step
+	public void checkingItemsInEntityCriteria() throws InterruptedException {
+		String labels = "Master customer set:,Condition ID:,Source:,Type:,Status:,Sub-status:,Tags:";
+		StringTokenizer tokenizer = new StringTokenizer(labels, ",");
+		while(tokenizer.hasMoreTokens()) {
+			String currToken = tokenizer.nextToken();
+			boolean exists = conditionsReportingPage.checkingItemsInAssociationsCriteria(currToken);
+			Verify.actualExpected(exists, true, currToken + " does not exist");
+		}
+	}
+	
+	@Step
+	public void checkingItemsInFieldAdminUsageCriteria() throws InterruptedException {
+		String labels = "Master customer set:,Status:,Retained in history:";
+		StringTokenizer tokenizer = new StringTokenizer(labels, ",");
+		while(tokenizer.hasMoreTokens()) {
+			String currToken = tokenizer.nextToken();
+			boolean exists = conditionsReportingPage.checkingItemsInAssociationsCriteria(currToken);
+			if(!tokenizer.hasMoreTokens()) {
+				currToken = "Include available Argus Master fields";
+				exists = conditionsReportingPage.checkingItemsInFieldAdminUsageCriteria(currToken);
+			}
+			Verify.actualExpected(exists, true, currToken + " does not exist");
+		}
+	}
+	
+	@Step
+	public void checkingItemsInSampleClaimTestDataCriteria() throws InterruptedException {
+		String labels = "Master customer set:,Benefit customer set:,Customer:,Client:,Condition ID:,Fill date:,Coverage code:";
+		StringTokenizer tokenizer = new StringTokenizer(labels, ",");
+		while(tokenizer.hasMoreTokens()) {
+			String currToken = tokenizer.nextToken();
+			boolean exists = conditionsReportingPage.checkingItemsInAssociationsCriteria(currToken);
+			Verify.actualExpected(exists, true, currToken + " does not exist");
+		}
+	}
+	
+	@Step
 	public void checkPrefix(String prefix, String ObjKey) {
 		boolean hasPrefix = conditionsReportingPage.checkPrefix(prefix, ObjKey);
 		Verify.actualExpected(hasPrefix, true, ObjKey + "does not display correct CD prefix");

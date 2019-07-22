@@ -5,8 +5,6 @@ If running this in parallel with another Feature that creates a condition, ensur
 Background:
 Given User opens the browser and goes to RxNova URL
 When They enter valid username, valid password and click on Login
-Then They check whether the application displays the Environment selection screen
-And They select Region and check whether the Landing Page is displayed
 Then User navigates from Landing page to "Condition" application
 When They check whether the "Condition Home" is displayed 
 Then They click on "Conditions New"

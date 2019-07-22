@@ -54,6 +54,20 @@ public class ConditionsReportingPage extends BasePage {
 		tmp.put("Condition ID Add Button for Entity", "/html[1]/body[1]/div[3]/div[3]/div[1]/div[3]/div[1]/div[3]/div[1]/div[1]/div[1]/fieldset[1]/div[1]/form[1]/div[3]/fieldset[1]/div[1]/span[1]/table[1]/tbody[1]/tr[1]/td[5]/button[1]/span[1]");
 		tmp.put("Tags Add Button for Entity", "/html[1]/body[1]/div[3]/div[3]/div[1]/div[3]/div[1]/div[3]/div[1]/div[1]/div[1]/fieldset[1]/div[1]/form[1]/div[3]/fieldset[1]/div[1]/span[3]/table[1]/tbody[1]/tr[1]/td[4]/button[1]/span[1]");
 		tmp.put("Tags check all for Entity", "//input[@name='reporting_form:tags_table:j_idt429_checkAll']");
+		tmp.put("Field Admin Usage Criteria Panel", "//fieldset[@id='reporting_form:field_admin_usage_panel']//div[@class='ui-fieldset-content']");
+		tmp.put("Master customer set for FAU", "//select[@id='reporting_form:customerSet_for_field']");
+		tmp.put("Status for FAU", "//select[@id='reporting_form:field_status']");
+		tmp.put("Retained in history for FAU", "//select[@id='reporting_form:retained_in_history']");
+		tmp.put("Include available Argus Master fields checkbox", "//input[@id='reporting_form:include_available_argus_master']");
+		tmp.put("Reset Button for Field Admin Usage", "//button[@id='reporting_form:j_idt380']//span[@class='ui-button-text'][contains(text(),'Reset')]");
+		tmp.put("Report Button for Field Admin Usage", "//span[@class='ui-button-text'][contains(text(),'Report')]");
+		tmp.put("Coverage Code Add Button for Sample Claim", "//span[contains(text(),'Add')]");
+		tmp.put("Remove Button for Sample Claim", "//span[contains(text(),'Remove')]");
+		tmp.put("Condition ID CD for Sample Claim", "//input[@id='reporting_form:j_idt487']");
+		tmp.put("Coverage Code Table for Sample Claim", "//div[@id='reporting_form:claim_cc_table']");
+		tmp.put("Reset Button for Sample Claim", "//button[@id='reporting_form:j_idt502']//span[@class='ui-button-text'][contains(text(),'Reset')]");
+		tmp.put("Report Button for Sample Claim", "//span[@class='ui-button-text'][contains(text(),'Report')]");
+		tmp.put("Sample Claim Test Data Criteria Panel", "//fieldset[@id='reporting_form:claimtest_report_panel']//div[@class='ui-fieldset-content']");
 		ConditionsReportingMap = Collections.unmodifiableMap(tmp);
 	}
 	
@@ -109,6 +123,20 @@ public class ConditionsReportingPage extends BasePage {
 		boolean labelMatch = false;
 		for(WebElement i : pageLabels) {
 			System.out.println(" This panel label is displayed "+i.getText());
+			if(i.getText().contains(label)) {
+				labelMatch = true;
+				break;
+			}
+		}
+		return(labelMatch);
+	}
+	
+	public boolean checkingItemsInFieldAdminUsageCriteria(String label) throws InterruptedException {
+		rxNovaCommonUtil.CheckBusyState();
+		List<WebElement> pageLabel = getDriver().findElements(By.className("firstIncludeAvailableArgusMasterFieldsColumn"));
+		boolean labelMatch = false;
+		for(WebElement i : pageLabel) {
+			System.out.println(" This panel label is displayed " + i.getText());
 			if(i.getText().contains(label)) {
 				labelMatch = true;
 				break;

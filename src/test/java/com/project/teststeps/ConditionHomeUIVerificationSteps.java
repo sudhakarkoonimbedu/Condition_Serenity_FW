@@ -76,7 +76,7 @@ public class ConditionHomeUIVerificationSteps {
 	}
 	
 	@When("^They check whether \"(.*)\" is currently showing by checking for \"(.*)\"$")
-	public void IsTabDisplayed(String ObjKey, String ChildObjKey) {
+	public void IsTabDisplayed(String ObjKey, String ChildObjKey) throws InterruptedException {
 		actorOnConditionsPage.IsTabDisplayed(ObjKey, ChildObjKey);
 	}
 	

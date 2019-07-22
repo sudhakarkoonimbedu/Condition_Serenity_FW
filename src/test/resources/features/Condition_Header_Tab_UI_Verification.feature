@@ -28,8 +28,6 @@ ________________________________________________________________________________
 Background: perform Login
 Given User opens the browser and goes to RxNova URL
 When They enter valid username, valid password and click on Login
-Then They check whether the application displays the Environment selection screen
-And They select Region and check whether the Landing Page is displayed
 Then User navigates from Landing page to "Condition" application
 And They wait for the busy icon
 Then They check whether "Condition Home" is currently showing by checking for "Advanced Search" 
