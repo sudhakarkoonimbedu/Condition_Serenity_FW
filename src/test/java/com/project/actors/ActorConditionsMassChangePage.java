@@ -1,17 +1,26 @@
 package com.project.actors;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebElement;
+
 import com.project.common.util.RxNovaCommonUtil;
 import com.project.pages.ConditionsMassChangePage;
+import com.psqframework.core.page.BasePage;
 import com.psqframework.core.util.Verify;
 
 import cucumber.api.DataTable;
+import net.serenitybdd.core.annotations.findby.By;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.Steps;
 
-public class ActorConditionsMassChangePage {
+public class ActorConditionsMassChangePage extends BasePage {
 	
 	@Steps
 	RxNovaCommonUtil rxNovaCommonUtil;
@@ -123,12 +132,53 @@ public class ActorConditionsMassChangePage {
 	}
 	
 	@Step
-	public void deleteRequest() throws InterruptedException {
+	public void searchRequest(DataTable enterData) throws InterruptedException {
+		//write a Search Mass Change Function to search for the created mass change requests
+		clickIfClickable("Cancel");
+		rxNovaCommonUtil.CheckBusyState();
+		List<List<String>> data = enterData.raw();
+		SelectFromDropdown(data.get(1).get(3), "Mass Change Master customer set:");
+		SendKeysToField(data.get(1).get(4), "Request name:");
+		SelectFromDropdown(data.get(1).get(5), "Request type:");
+		SelectFromDropdown(data.get(1).get(6), "Request status:");
+		clickIfClickable("Search");
+	}
+	
+	@Step public void deleteRequest() throws InterruptedException {
+		rxNovaCommonUtil.WaitForBusyIcon();
+		WebElement RequestAction = getDriver().findElement(By.xpath(ConditionsMassChangePage.NewMassChangeMap.get("Request Action Tab")));
+		rxNovaCommonUtil.waitFor(RequestAction);
 		clickIfClickable("Request Action Tab");
 		clickIfClickable("Delete Request");
 		rxNovaCommonUtil.WaitForBusyIcon();
 		clickIfClickable("Yes Delete Request");
+		rxNovaCommonUtil.WaitForBusyIcon();
+		boolean MassChangeHomeExists = conditionsMassChangePage.ObjectIsDisplayed("Mass Change Search Panel");
+		Verify.actualExpected(MassChangeHomeExists, true, "Deletion of Mass Change Request did not occur properly");
+	}
+	
+	@Step public void searchRequestLastFirst(DataTable enterData) throws InterruptedException {
+		clickIfClickable("Cancel");
 		rxNovaCommonUtil.CheckBusyState();
+		List<List<String>> data = enterData.raw();
+		SelectFromDropdown(data.get(1).get(0), "Mass Change Master customer set:");
+		SendKeysToField(data.get(1).get(1), "Last name:");
+		SendKeysToField(data.get(1).get(2), "First name:");
+		clickIfClickable("Search");
+		rxNovaCommonUtil.WaitForBusyIcon();
+	}
+	
+	@Step 
+	public void searchRequestFromTo(DataTable enterData) throws InterruptedException {
+		clickIfClickable("Cancel");
+		rxNovaCommonUtil.CheckBusyState();
+		List<List<String>> data = enterData.raw();
+		DateFormat dateformat = new SimpleDateFormat("MM/dd/yyyy");
+		SelectFromDropdown(data.get(1).get(0), "Mass Change Master customer set:");
+		SendKeysToField(dateformat.format(new Date()), "From date:");
+		SendKeysToField(dateformat.format(new Date()), "To date:");
+		clickIfClickable("Search");
+		rxNovaCommonUtil.WaitForBusyIcon();
 	}
 	
 	@Step
@@ -141,5 +191,48 @@ public class ActorConditionsMassChangePage {
 			Verify.actualExpected(exists, true, currToken + " does not exist for " + ObjKey);
 		}
 		conditionsMassChangePage.gainInfoFromClickTabs(ObjKey, list);
+	}
+	
+	@Step
+	public void ObjectIsDisabled(String ObjKey) {
+		boolean isDisabled = conditionsMassChangePage.ObjectIsDisabled(ObjKey);
+		Verify.actualExpected(isDisabled, false, "'" + ObjKey + "'" + " is not disabled");
+	}
+	
+	@Step
+	public void checkingRequestTabPanel(String ObjKey) throws InterruptedException { 
+		String firstTitleRow = "Master customer set:,Request name:,Request type:,Request status:";
+		String firstCommonColumn = "Tracking ID:,Reason:,Notes:,Description:";
+		String masschangeInformationfirstColumn = "Created by:,Created date:,Created time:,Last maintenance user:,Last maintenance date:,Last maintenance time:";
+		StringTokenizer tokenizer1 = new StringTokenizer(firstTitleRow, ",");
+		StringTokenizer tokenizer2 = new StringTokenizer(firstCommonColumn, ",");
+		StringTokenizer tokenizer3 = new StringTokenizer(masschangeInformationfirstColumn, ",");
+		while(tokenizer1.hasMoreTokens()) {
+			String currToken = tokenizer1.nextToken();
+			String currClass = "firstTitleRow";
+			boolean exists = conditionsMassChangePage.checkPanelLabelsKnowingClass(currClass, currToken);
+			Verify.actualExpected(exists, true, currToken + " does not exist for " + ObjKey);
+		}
+		while(tokenizer2.hasMoreTokens()) {
+			String currToken = tokenizer2.nextToken();
+			String currClass = "firstCommonColumn";
+			boolean exists =  conditionsMassChangePage.checkPanelLabelsKnowingClass(currClass, currToken);
+			Verify.actualExpected(exists, true, currToken + " does not exist for " + ObjKey);
+		}
+		while(tokenizer3.hasMoreTokens()) {
+			String currToken = tokenizer3.nextToken();
+			String currClass = "masschangeInformationfirstColumn";
+			boolean exists =  conditionsMassChangePage.checkPanelLabelsKnowingClass(currClass, currToken);
+			Verify.actualExpected(exists, true, currToken + " does not exist for " + ObjKey);
+		}
+	}
+	
+	@Step
+	public void checkingResultsPanelAfterSearch() throws NoSuchElementException {
+		boolean resultsDisplayed = conditionsMassChangePage.ObjectIsDisplayed("Request Action Tab");
+		if(resultsDisplayed == false) {
+			resultsDisplayed = conditionsMassChangePage.checkingResultsPanelAfterSearch();
+		}
+		Verify.actualExpected(resultsDisplayed, true, "Results are not properly displayed after performing search");
 	}
 }

@@ -45,7 +45,7 @@ public class ConditionNewMassChangeUIVerificationSteps {
 		actorOnConditionsMassChangePage.MCSDropdowncheckContents(ObjKey);
 	}
 	
-	@Then("^They check whether \"(.*)\" dropdown contains \"(.*)\"$")
+	@Then("^They check that \"(.*)\" dropdown should display \"(.*)\"$")
 	public void DropdownCheckContents(String ObjKey, String expected) {
 		actorOnConditionsMassChangePage.DropdownCheckContents(expected, ObjKey);
 	}
@@ -64,15 +64,45 @@ public class ConditionNewMassChangeUIVerificationSteps {
 	}
 	
 	@Then("^User deletes newly submitted mass change request$")
-	public void deleteRequest() throws InterruptedException {
+	public void deleteRequest(DataTable enterData) throws InterruptedException {
 		rxNovaCommonUtil.WaitForBusyIcon();
+		actorOnConditionsMassChangePage.searchRequest(enterData);
 		actorOnConditionsMassChangePage.deleteRequest();
-		Thread.sleep(2000);
 	}
 	
 	@Then("^They verify that \"(.*)\" contains \"(.*)\"$")
 	public void gainInfoFromClickTabs(String ObjKey, String list) {
 		actorOnConditionsMassChangePage.gainInfoFromClickTabs(ObjKey, list);
+	}
+	
+	@Then("^Ensure \"(.*)\" should be disabled$")
+	public void ObjectIsDisabled(String ObjKey) {
+		actorOnConditionsMassChangePage.ObjectIsDisabled(ObjKey);
+	}
+	
+	@Then("^They search for the following Mass Change Request based on MCS$")
+	public void searchRequestMCS(DataTable enterData) throws InterruptedException {
+		actorOnConditionsMassChangePage.searchRequest(enterData);
+	}
+	
+	@Then("^They give the below details for searching based on last & first name$")
+	public void searchRequestLastFirst(DataTable enterData) throws InterruptedException {
+		actorOnConditionsMassChangePage.searchRequestLastFirst(enterData);
+	}
+	
+	@Then("^They give the below details for searching based on from date & to date$")
+	public void searchRequestFromTo(DataTable enterData) throws InterruptedException {
+		actorOnConditionsMassChangePage.searchRequestFromTo(enterData);
+	}
+	
+	@Then("^\"(.*)\" should display correct contents$")
+	public void checkingRequestTabPanel(String ObjKey) throws InterruptedException {
+		actorOnConditionsMassChangePage.checkingRequestTabPanel(ObjKey);
+	}
+	
+	@Then("^They check whether Results Panel contains submitted mass change requests$")
+	public void checkingResultsPanelAfterSearch() {
+		actorOnConditionsMassChangePage.checkingResultsPanelAfterSearch();
 	}
 	
 }

@@ -12,7 +12,6 @@ import org.openqa.selenium.WebElement;
 import com.project.common.util.RxNovaCommonUtil;
 import com.psqframework.core.page.BasePage;
 
-import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.Steps;
 
 public class ConditionsMassChangePage extends BasePage {
@@ -53,6 +52,12 @@ public class ConditionsMassChangePage extends BasePage {
 		tmp.put("Request", "//em[contains(text(),'Request')]");
 		tmp.put("Delete Request", "//a[contains(text(),'Delete Request')]");
 		tmp.put("Yes Delete Request", "//button[@id='massChange_form:confirm_button']//span[@class='ui-button-text'][contains(text(),'YES')]");
+		tmp.put("Browse Requests", "//a[@id='j_idt48:j_idt49']");
+		tmp.put("Browse Requests Refresh", "//span[contains(text(),'Refresh')]");
+		tmp.put("Browse Requests Request type:", "//select[@id='browseRequestForm:requestType']");
+		tmp.put("Browse Requests Close", "//button[@id='browseRequestForm:j_idt852']//span[@class='ui-button-text'][contains(text(),'Close')]");
+		tmp.put("Browse Requests Delete", "//span[@class='ui-button-text'][contains(text(),'Delete')]");
+		tmp.put("Results Table Bottom Strip", "//div[@id='mass_change_search_result_form:mass_change_result_data_table_paginatorbottom']");
 		NewMassChangeMap = Collections.unmodifiableMap(tmp);
 	}
 	
@@ -77,6 +82,20 @@ public class ConditionsMassChangePage extends BasePage {
 		String ObjPath = NewMassChangeMap.get(ObjKey);
 		boolean isDisabled = rxNovaCommonUtil.ObjectIsDisabled(ObjPath);
 		return(isDisabled);
+	}
+	
+	public boolean checkPanelLabelsKnowingClass(String currClass, String label) throws InterruptedException {
+		rxNovaCommonUtil.WaitForBusyIcon();
+		List<WebElement> pageLabels = getDriver().findElements(By.className(currClass));
+		boolean labelMatch = false;
+		for(WebElement i: pageLabels) {
+			if(i.getText().contains(label)) {
+				System.out.println(" This panel label is displayed " + i.getText());
+				labelMatch = true;
+				break;
+			}
+		}
+		return(labelMatch);
 	}
 	
 	public boolean checkDetailsPanelForCorrectLabels(String label) throws InterruptedException {
@@ -156,7 +175,13 @@ public class ConditionsMassChangePage extends BasePage {
 	}
 	
 	public boolean gainInfoFromClickTabs(String ObjKey, String label) {
-		List<WebElement> pageLabels = getDriver().findElements(By.cssSelector("li.nav-menu-bar.mass_change_action_menu a"));
+		List<WebElement> pageLabels = null;
+		if(ObjKey.equals("Request Action Tab")) {
+			pageLabels = getDriver().findElements(By.cssSelector("li.nav-menu-bar.mass_change_action_menu a"));
+		}
+		else if(ObjKey.equals("Request Reporting Tab")) {
+			pageLabels = getDriver().findElements(By.cssSelector("li.nav-menu-bar a"));
+		}
 		boolean labelMatch = false;
 		for(WebElement i : pageLabels) {
 			System.out.println(" This label is displayed  for " + ObjKey);
@@ -168,5 +193,12 @@ public class ConditionsMassChangePage extends BasePage {
 		return(labelMatch);
 	}
 
+	public boolean checkingResultsPanelAfterSearch() {
+		if(getDriver().findElement(By.xpath(NewMassChangeMap.get("Results Table Bottom Strip"))).getText().equals("Total results: 0")) {
+			return(false);
+		}
+		return(true);
+	}
+	
 
 }

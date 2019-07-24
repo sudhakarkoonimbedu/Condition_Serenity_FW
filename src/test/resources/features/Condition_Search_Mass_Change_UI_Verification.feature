@@ -36,15 +36,15 @@ Then "Mass Change Master customer set:" drop down list should display list of av
 
 Scenario: Verify Request type drop down list in Search panel
 Given They check if "Mass Change" is displaying by checking for "Mass Change Search Panel" 
-Then They check whether "Request type:" dropdown contains "Mass Change"
+Then They check that "Request type:" dropdown should display "Mass Change"
 
 Scenario: Verify Request status drop down list in Search panel 
 Given They check if "Mass Change" is displaying by checking for "Mass Change Search Panel" 
-Then They check whether "Request status:" dropdown contains "Pending,Preliminary,Final,Canceled,Expired"
+Then They check that "Request status:" dropdown should display "Pending,Preliminary,Final,Canceled,Expired"
 
 Scenario: Verify Run status drop down list in Search panel 
 Given They check if "Mass Change" is displaying by checking for "Mass Change Search Panel" 
-Then They check whether "Run status" dropdown contains "Submitted,Scheduled,In Progress,Completed,Failed,Stopped"
+Then They check that "Run status" dropdown should display "Submitted,Scheduled,In Progress,Completed,Failed,Stopped"
 
 Scenario: Verify Created by options in Search panel 
 Given They check if "Mass Change" is displaying by checking for "Mass Change Search Panel" 

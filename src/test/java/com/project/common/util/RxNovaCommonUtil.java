@@ -764,8 +764,14 @@ public class RxNovaCommonUtil extends BasePage{
 	}
 
 	public boolean ObjectIsDisplayed(String ObjPath){
-		boolean isDisplayed = $(ObjPath).isDisplayed();
-		return(isDisplayed);
+		try {
+			$(ObjPath).isDisplayed();
+			return(true);
+		}
+		catch(Exception e) {
+			return(false);
+		}
+		
 	}
 
 	public boolean ObjectContainsExpectedText(String ObjPath, String expectedDisplay) {

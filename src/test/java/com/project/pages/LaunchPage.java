@@ -42,9 +42,6 @@ public class LaunchPage extends BasePage {
 			System.out.println("In MAVEN PARAMETERS password");
 		}
 		
-		
-		System.out.println("SEE THIS IS USERNAME " + InputUsername);
-		System.out.println("SEE THIS IS PWD " + InputPassword);
 		userName.fill(InputUsername);
 		password.fill(InputPassword);
 		
