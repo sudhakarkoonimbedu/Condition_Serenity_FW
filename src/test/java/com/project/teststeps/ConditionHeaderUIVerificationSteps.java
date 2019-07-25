@@ -19,7 +19,7 @@ public class ConditionHeaderUIVerificationSteps {
 	ActorConditionsHeaderPage actorOnConditionsHeaderPage;
 	
 	@Then("^They check if \"(.*)\" displays$")
-	public void ObjectIsDisplayed(String ObjKey) {
+	public void ObjectIsDisplayed(String ObjKey) throws InterruptedException {
 		actorOnConditionsHeaderPage.ObjectIsDisplayed(ObjKey);
 	}
 	

@@ -76,7 +76,7 @@ public class ActorConditionsDetailsPage {
 	}
 
 	@Step
-	public void ObjectIsDisplayed(String ObjKey) {
+	public void ObjectIsDisplayed(String ObjKey) throws InterruptedException {
 		boolean isDisplayed = conditionsDetailsPage.ObjectIsDisplayed(ObjKey);
 		assertTrue("'" + ObjKey + "'" + " is not Displayed", isDisplayed);
 	}

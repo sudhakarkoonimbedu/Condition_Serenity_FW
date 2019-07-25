@@ -45,7 +45,7 @@ public class ActorConditionsFieldAdminSearch {
 	}
 	
 	@Step
-	public void ObjectIsDisplayed(String ObjKey) {
+	public void ObjectIsDisplayed(String ObjKey) throws InterruptedException {
 		boolean isDisplayed = conditionsFieldAdmin.ObjectIsDisplayed(ObjKey);
 		Verify.actualExpected(isDisplayed, true, "'" + ObjKey + "'" + " object is not displayed ");
 	}

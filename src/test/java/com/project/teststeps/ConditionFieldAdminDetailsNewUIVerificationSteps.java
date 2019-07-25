@@ -42,7 +42,7 @@ public class ConditionFieldAdminDetailsNewUIVerificationSteps {
 	}
 	
 	@Then("^They check if \"(.*)\" is displayed$")
-	public void ObjectIsDisplayed(String ObjKey) {
+	public void ObjectIsDisplayed(String ObjKey) throws InterruptedException {
 		actorOnFieldAdminDetails.ObjectIsDisplayed(ObjKey);
 	}
 	

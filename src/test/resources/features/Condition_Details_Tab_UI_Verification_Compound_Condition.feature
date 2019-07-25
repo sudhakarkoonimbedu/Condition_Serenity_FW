@@ -36,7 +36,7 @@ Then They click on "Conditions New"
 Then They check if the "Conditions Header" is currently showing by checking for "Tracking ID:"
 When They enter the following header data and press "Next"
  | Tracking ID       | Master customer set       | Condition ID   | Name        | Status          | Type     |
- |	123456789954621  | Argus Master Customer Set |  00100461      | Samyu       | Ready for Use   | Compound | 
+ |	669854312456478  | Argus Master Customer Set |  00256847      | checha      | Ready for Use   | Compound | 
 
 Scenario Outline: Verify the Compound Operator, Condition ID labels
 Given They ensure that they are on "Details" by checking for "Compound Operator:"

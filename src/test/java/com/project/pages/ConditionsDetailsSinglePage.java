@@ -79,6 +79,7 @@ public class ConditionsDetailsSinglePage extends BasePage {
 	
 	public boolean ObjectIsCurrentlyEnabled(String ObjKey) {
 		String ObjPath = ConditionsHeaderMap.get(ObjKey);
+		rxNovaCommonUtil.WaitForBusyIcon();
 		return($(ObjPath).isCurrentlyEnabled());
 	}
 	
@@ -105,7 +106,7 @@ public class ConditionsDetailsSinglePage extends BasePage {
 		return(IsTabDisplayed);
 	}
 	
-	public boolean ObjectIsDisplayed(String ObjKey){
+	public boolean ObjectIsDisplayed(String ObjKey) throws InterruptedException{
 		String ObjPath = ConditionsHeaderMap.get(ObjKey);
 		boolean isDisplayed = rxNovaCommonUtil.ObjectIsDisplayed(ObjPath);
 		return(isDisplayed);

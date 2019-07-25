@@ -70,7 +70,7 @@ public class ActorConditionsHeaderPage {
 	}
 
 	@Step
-	public void ObjectIsDisplayed(String ObjKey) {
+	public void ObjectIsDisplayed(String ObjKey) throws InterruptedException {
 		boolean isDisplayed = conditionsHeaderPage.ObjectIsDisplayed(ObjKey);
 		Verify.actualExpected(isDisplayed, true, "'" + ObjKey + "'" + " is not Displayed");
 	}

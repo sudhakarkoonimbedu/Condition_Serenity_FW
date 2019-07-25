@@ -1,5 +1,7 @@
 package com.project.teststeps;
 
+import org.openqa.selenium.NoSuchElementException;
+
 import com.project.actors.ActorConditionsMassChangePage;
 import com.project.common.util.RxNovaCommonUtil;
 
@@ -31,7 +33,7 @@ public class ConditionNewMassChangeUIVerificationSteps {
 	}
 	
 	@Then("^\"(.*)\" should display$")
-	public void ObjectIsDisplayed(String ObjKey) {
+	public void ObjectIsDisplayed(String ObjKey) throws InterruptedException {
 		actorOnConditionsMassChangePage.ObjectIsDisplayed(ObjKey);
 	}
 	
@@ -101,7 +103,7 @@ public class ConditionNewMassChangeUIVerificationSteps {
 	}
 	
 	@Then("^They check whether Results Panel contains submitted mass change requests$")
-	public void checkingResultsPanelAfterSearch() {
+	public void checkingResultsPanelAfterSearch() throws NoSuchElementException, InterruptedException {
 		actorOnConditionsMassChangePage.checkingResultsPanelAfterSearch();
 	}
 	

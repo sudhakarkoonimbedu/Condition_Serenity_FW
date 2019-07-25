@@ -46,7 +46,7 @@ public class ConditionReportingUIVerificationSteps {
 	}
 	
 	@Then("^\"(.*)\" must be displayed$")
-	public void ObjectIsDisplayed(String ObjKey) {
+	public void ObjectIsDisplayed(String ObjKey) throws InterruptedException {
 		actorOnConditionsReportingPage.ObjectIsDisplayed(ObjKey);
 	}
 

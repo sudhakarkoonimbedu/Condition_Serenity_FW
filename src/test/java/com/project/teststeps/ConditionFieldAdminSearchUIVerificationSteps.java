@@ -29,7 +29,7 @@ public class ConditionFieldAdminSearchUIVerificationSteps {
 	}
 	
 	@Then("^They verify whether \"(.*)\" is displayed$")
-	public void ObjectIsDisplayed(String ObjKey) {
+	public void ObjectIsDisplayed(String ObjKey) throws InterruptedException {
 		actorOnFieldAdminSearch.ObjectIsDisplayed(ObjKey);
 	}
 	

@@ -12,6 +12,7 @@ import java.util.StringTokenizer;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchFrameException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -659,8 +660,20 @@ public class RxNovaCommonUtil extends BasePage{
 			}			
 			NavigateApplicationMenu(APPPath);		
 			RxNova_PageSelection(APPPath);
-			getDriver().switchTo().defaultContent();
-			getDriver().switchTo().frame(0);
+			int cnt = 0;
+			while(cnt < 600) {
+				try {
+					getDriver().switchTo().defaultContent();
+					getDriver().switchTo().frame(0);
+					break;
+				}
+				catch(NoSuchFrameException e) {
+					cnt += 200;
+					System.out.println("Waiting for page to load ...");
+					Thread.sleep(500);
+					continue;
+				}
+			}
 		}
 	}	
 
@@ -689,7 +702,7 @@ public class RxNovaCommonUtil extends BasePage{
 
 	public void switchToContentFrame() {
 		getDriver().switchTo().defaultContent();
-		getDriver().switchTo().frame(" /conditions-web");
+		getDriver().switchTo().frame(0);
 	}
 	
 	public static int numBrowsers = 0;
@@ -763,15 +776,24 @@ public class RxNovaCommonUtil extends BasePage{
 		System.out.println("-----------Completed Open firefox and start RxNova Application-------------");
 	}
 
-	public boolean ObjectIsDisplayed(String ObjPath){
-		try {
-			$(ObjPath).isDisplayed();
-			return(true);
+	public boolean ObjectIsDisplayed(String ObjPath) throws InterruptedException {
+		int cnt = 0;
+		boolean displayed = false;
+		while(!displayed && cnt < 600) {
+			try {
+				$(ObjPath).isDisplayed();
+				displayed = true;
+				return(displayed);
+			}
+			catch(Exception e) {
+				displayed = false;
+				System.out.println("Element not found yet, waiting and trying again ...");
+				cnt++;
+				Thread.sleep(500);
+				continue;
+			}
 		}
-		catch(Exception e) {
-			return(false);
-		}
-		
+		return(displayed);
 	}
 
 	public boolean ObjectContainsExpectedText(String ObjPath, String expectedDisplay) {

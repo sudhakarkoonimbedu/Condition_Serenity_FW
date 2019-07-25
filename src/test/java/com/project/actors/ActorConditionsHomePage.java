@@ -19,7 +19,7 @@ public class ActorConditionsHomePage {
 	RxNovaCommonUtil rxNovaCommonUtil;
 	
 	@Step
-	public void ObjectIsDisplayed(String ObjKey) {
+	public void ObjectIsDisplayed(String ObjKey) throws InterruptedException {
 		boolean isDisplayed = conditionsHomePage.ObjectIsDisplayed(ObjKey);
 		assertTrue("'" + ObjKey + "'" + " object is not displayed ", isDisplayed);
 	}
@@ -35,7 +35,7 @@ public class ActorConditionsHomePage {
 	}
 	
 	@Step
-	public void ObjectContainsExpectedText(String ObjKey, String expectedDisplay) {
+	public void ObjectContainsExpectedText(String ObjKey, String expectedDisplay) throws InterruptedException {
 		ObjectIsDisplayed(ObjKey);
 		boolean containsExpected = conditionsHomePage.ObjectContainsExpectedText(ObjKey, expectedDisplay);
 		assertTrue("'" + ObjKey + "'" + " does not contain " + expectedDisplay, containsExpected);

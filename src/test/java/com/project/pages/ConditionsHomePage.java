@@ -67,7 +67,7 @@ public class ConditionsHomePage extends BasePage {
 		return(IsTabDisplayed);
 	}
 	
-	public boolean ObjectIsDisplayed(String ObjKey){
+	public boolean ObjectIsDisplayed(String ObjKey) throws InterruptedException {
 		String ObjPath = ConditionsHomeMap.get(ObjKey);
 		boolean isDisplayed = rxNovaCommonUtil.ObjectIsDisplayed(ObjPath);
 		return(isDisplayed);

@@ -15,7 +15,7 @@ public class ConditionTagsUIVerificationSteps {
 	RxNovaCommonUtil rxNovaCommonUtil;
 	
 	@Then("^They verify that \"(.*)\" is displayed$")
-	public void ObjectIsDisplayed(String ObjKey) {
+	public void ObjectIsDisplayed(String ObjKey) throws InterruptedException {
 		actorOnConditionsTagsNotesPage.ObjectIsDisplayed(ObjKey);
 	}
 	

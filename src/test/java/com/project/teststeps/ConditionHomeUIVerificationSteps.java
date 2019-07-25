@@ -21,7 +21,7 @@ public class ConditionHomeUIVerificationSteps {
 
 	
 	@Then("^They check whether the \"(.*)\" is displayed$")
-	public void ObjectIsDisplayed(String ObjKey) {
+	public void ObjectIsDisplayed(String ObjKey) throws InterruptedException {
 		actorOnConditionsPage.ObjectIsDisplayed(ObjKey);
 	}
 	
@@ -66,7 +66,7 @@ public class ConditionHomeUIVerificationSteps {
 	}
 	
 	@When("^They check whether \"(.*)\" contains \"(.*)\"$")
-	public void ObjectContainsExpectedText(String ObjKey, String expectedDisplay) {
+	public void ObjectContainsExpectedText(String ObjKey, String expectedDisplay) throws InterruptedException {
 		actorOnConditionsPage.ObjectContainsExpectedText(ObjKey, expectedDisplay);
 	}
 	

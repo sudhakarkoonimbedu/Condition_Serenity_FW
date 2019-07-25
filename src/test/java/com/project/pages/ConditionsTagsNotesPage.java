@@ -28,7 +28,7 @@ public class ConditionsTagsNotesPage {
 		ConditionsTagsNotesMap = Collections.unmodifiableMap(tmp);
 	}	
 	
-	public boolean ObjectIsDisplayed(String ObjKey){
+	public boolean ObjectIsDisplayed(String ObjKey) throws InterruptedException{
 		String ObjPath = ConditionsTagsNotesMap.get(ObjKey);
 		boolean isDisplayed = rxNovaCommonUtil.ObjectIsDisplayed(ObjPath);
 		return(isDisplayed);

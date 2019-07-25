@@ -63,7 +63,7 @@ public class ConditionsFieldAdminPage extends BasePage {
 		return(hasContents);
 	}
 	
-	public boolean ObjectIsDisplayed(String ObjKey) {
+	public boolean ObjectIsDisplayed(String ObjKey) throws InterruptedException {
 		String ObjPath = ConditionsFieldAdminSearchMap.get(ObjKey);
 		System.out.println("This is the current obj path " + ObjPath);
 		boolean isDisplayed = rxNovaCommonUtil.ObjectIsDisplayed(ObjPath);

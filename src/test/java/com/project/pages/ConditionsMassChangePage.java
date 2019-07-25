@@ -115,7 +115,7 @@ public class ConditionsMassChangePage extends BasePage {
 		return(labelMatch);
 	}
 	
-	public boolean ObjectIsDisplayed(String ObjKey) {
+	public boolean ObjectIsDisplayed(String ObjKey) throws InterruptedException {
 		String ObjPath = NewMassChangeMap.get(ObjKey);
 		boolean isDisplayed = rxNovaCommonUtil.ObjectIsDisplayed(ObjPath);
 		return(isDisplayed);

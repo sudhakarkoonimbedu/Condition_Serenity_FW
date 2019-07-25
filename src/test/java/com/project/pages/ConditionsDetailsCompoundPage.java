@@ -81,7 +81,7 @@ public class ConditionsDetailsCompoundPage extends BasePage {
 		}
 	}
 	
-	public boolean ObjectIsDisplayed(String ObjKey){
+	public boolean ObjectIsDisplayed(String ObjKey) throws InterruptedException{
 		String ObjPath = ConditionsDetailsCompMap.get(ObjKey);
 		boolean isDisplayed = rxNovaCommonUtil.ObjectIsDisplayed(ObjPath);
 		return(isDisplayed);

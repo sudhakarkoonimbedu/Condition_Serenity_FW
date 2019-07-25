@@ -34,33 +34,14 @@ Then User navigates from Landing page to "Condition" application
 When They check whether the "Condition Home" is displayed 
 Then They click on "Conditions New"
 Then They check if the "Conditions Header" is currently showing by checking for "Tracking ID:"
+Then They check whether the "Conditions Header" is currently enabled
 When They enter the following header data and press "Next"
  | Tracking ID       | Master customer set       | Condition ID   | Name        | Status          | Type   |
  |	123456789954621  | Argus Master Customer Set |  00100461      | Samyu       | Ready for Use   | Single | 
 
-Scenario: Ensuring Default Enable of Header Tab
-Then They check whether the "Conditions Header" is currently enabled
-
 Scenario: Ensuring Disable of Tabs
 Then They check if "Pre-Test" is disabled
 Then They check if "Associations" is disabled
-
-Scenario: User Creates Condition
-Then They check if the "Details" is currently showing by checking for "Source:"
-When They enter the following details data and press "Next"
- | Source        | Field Name | Operator       |      Value      |
- | Field         |    NDC     | Is the Same As |   00298157935   |
-Then They click "Conditions Tags/Notes Save"
-
-Scenario: User Deletes Condition
-Given User navigates from Landing page to "Condition" application
-Then User switches windows to most recent window
-When They check whether the "Condition Home" is displayed
-When User enters the following data into Condition Home Search Panel and presses "Conditions Search"
-    | Master customer set               | Type       | Condition ID  | Name       |
-    | Argus Master Customer Set         | Single     | 00100461      | Samyu      |
-When They click "Conditions Header Delete"
-Then They enter the following tracking id "123456789954621" and press "Conditions Header 2nd Delete"
 
 Scenario Outline: User Ensures that the Conditions Details Tab contains Source, Field Name, Operator, and Value labels when Field is selected for Source
 Given They check if the "Details" is currently showing by checking for "Source:"
@@ -109,3 +90,20 @@ Given They check if the "Details" is currently showing by checking for "Source:"
 Then They check if the "PreviousD" is currently showing by checking for "PreviousD"
 Then They check if the "NextD" is currently showing by checking for "NextD"
 Then They check if the "CancelD" is currently showing by checking for "CancelD"
+
+Scenario: User Creates Condition
+Then They check if the "Details" is currently showing by checking for "Source:"
+When They enter the following details data and press "Next"
+ | Source        | Field Name | Operator       |      Value      |
+ | Field         |    NDC     | Is the Same As |   00298157935   |
+Then They click "Conditions Tags/Notes Save"
+
+Scenario: User Deletes Condition
+Given User navigates from Landing page to "Condition" application
+Then User switches windows to most recent window
+When They check whether the "Condition Home" is displayed
+When User enters the following data into Condition Home Search Panel and presses "Conditions Search"
+    | Master customer set               | Type       | Condition ID  | Name       |
+    | Argus Master Customer Set         | Single     | 00100461      | Samyu      |
+When They click "Conditions Header Delete"
+Then They enter the following tracking id "123456789954621" and press "Conditions Header 2nd Delete"

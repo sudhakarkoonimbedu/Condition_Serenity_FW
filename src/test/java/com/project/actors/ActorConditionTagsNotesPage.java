@@ -15,7 +15,7 @@ public class ActorConditionTagsNotesPage {
 	ConditionsTagsNotesPage conditionsTagsNotesPage;
 	
 	@Step
-	public void ObjectIsDisplayed(String ObjKey) {
+	public void ObjectIsDisplayed(String ObjKey) throws InterruptedException {
 		boolean isDisplayed = conditionsTagsNotesPage.ObjectIsDisplayed(ObjKey);
 		Verify.actualExpected(isDisplayed, true, "'" + ObjKey + "'" + " object is not displayed ");
 	}

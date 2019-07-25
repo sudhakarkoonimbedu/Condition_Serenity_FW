@@ -65,7 +65,7 @@ public class ActorConditionsMassChangePage extends BasePage {
 	}
 	
 	@Step
-	public void ObjectIsDisplayed(String ObjKey) {
+	public void ObjectIsDisplayed(String ObjKey) throws InterruptedException {
 		boolean isDisplayed = conditionsMassChangePage.ObjectIsDisplayed(ObjKey);
 		Verify.actualExpected(isDisplayed, true, "'" + ObjKey + "'" + " object is not displayed ");
 	}
@@ -228,7 +228,7 @@ public class ActorConditionsMassChangePage extends BasePage {
 	}
 	
 	@Step
-	public void checkingResultsPanelAfterSearch() throws NoSuchElementException {
+	public void checkingResultsPanelAfterSearch() throws NoSuchElementException, InterruptedException {
 		boolean resultsDisplayed = conditionsMassChangePage.ObjectIsDisplayed("Request Action Tab");
 		if(resultsDisplayed == false) {
 			resultsDisplayed = conditionsMassChangePage.checkingResultsPanelAfterSearch();

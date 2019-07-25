@@ -34,7 +34,7 @@ public class ConditionDetailsCompoundUIVerificationSteps {
 	}
 	
 	@Then("^They ensure that \"(.*)\" is displayed$")
-	public void ObjectIsDisplayed(String ObjKey) {
+	public void ObjectIsDisplayed(String ObjKey) throws InterruptedException {
 		actorOnConditionsDetailsCompPage.ObjectIsDisplayed(ObjKey);
 	}
 	
