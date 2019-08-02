@@ -779,7 +779,7 @@ public class RxNovaCommonUtil extends BasePage{
 	public boolean ObjectIsDisplayed(String ObjPath) throws InterruptedException {
 		int cnt = 0;
 		boolean displayed = false;
-		while(!displayed && cnt < 600) {
+		while(!displayed && cnt < 10) {
 			try {
 				$(ObjPath).isDisplayed();
 				displayed = true;
@@ -787,9 +787,9 @@ public class RxNovaCommonUtil extends BasePage{
 			}
 			catch(Exception e) {
 				displayed = false;
-				System.out.println("Element not found yet, waiting and trying again ...");
+				System.out.println("Element not found yet, waiting and trying again ..." + cnt);
 				cnt++;
-				Thread.sleep(500);
+				Thread.sleep(5);
 				continue;
 			}
 		}
@@ -882,9 +882,25 @@ public class RxNovaCommonUtil extends BasePage{
 		return(hasContents);
 	}
 	
-	public boolean isFieldClickable(String ObjPath) {
-		System.out.println("Element associated with this xpath is clickable ..." + "...xpath = " + ObjPath);
-		return($(ObjPath).isClickable());
+	public boolean isFieldClickable(String ObjPath) throws InterruptedException {
+		
+		int cnt = 0;
+		boolean clickable = false;
+		while(!clickable && cnt < 10) {
+			try {
+				$(ObjPath).isClickable();
+				clickable = true;
+				return(clickable);
+			}
+			catch (Exception e) {
+				clickable = false;
+				System.out.println("Element not found yet, waiting and trying again to see if clickable ..." + cnt);
+				cnt++;
+				Thread.sleep(5);
+				continue;
+			}
+		}
+		return(clickable);
 	}
 	
 	public void performClick(String ObjPath) {

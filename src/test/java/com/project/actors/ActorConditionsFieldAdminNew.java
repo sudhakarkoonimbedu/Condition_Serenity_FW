@@ -34,7 +34,7 @@ public class ActorConditionsFieldAdminNew {
 	}
 	
 	@Step
-	public boolean isFieldClickable(String ObjKey) {
+	public boolean isFieldClickable(String ObjKey) throws InterruptedException {
 		boolean isClickable = conditionsFieldAdminDetails.isFieldClickable(ObjKey);
 		Verify.actualExpected(isClickable, true, "'" + ObjKey + "'" + " is not currently clickable");
 		return(isClickable);

@@ -135,7 +135,7 @@ public class ConditionsHomePage extends BasePage {
 		}
 	}
 	
-	public boolean isFieldClickable(String ObjKey) {
+	public boolean isFieldClickable(String ObjKey) throws InterruptedException {
 		String ObjPath = ConditionsHomeMap.get(ObjKey);
 		boolean isClickable = rxNovaCommonUtil.isFieldClickable(ObjPath);
 		return(isClickable);

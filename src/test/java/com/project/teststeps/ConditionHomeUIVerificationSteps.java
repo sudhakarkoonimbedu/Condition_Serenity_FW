@@ -56,12 +56,12 @@ public class ConditionHomeUIVerificationSteps {
 	}
 	
 	@Then("^They check whether \"(.*)\" field is clickable$")
-	public void isFieldClickable(String ObjKey) {
+	public void isFieldClickable(String ObjKey) throws InterruptedException {
 		actorOnConditionsPage.isFieldClickable(ObjKey);
 	}
 	
 	@When("^They click on \"(.*)\"$")
-	public void clickIfClickable(String ObjKey) {
+	public void clickIfClickable(String ObjKey) throws InterruptedException {
 		actorOnConditionsPage.clickIfClickable(ObjKey);
 	}
 	

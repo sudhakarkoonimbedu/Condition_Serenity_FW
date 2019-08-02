@@ -1,7 +1,5 @@
 Feature: Verifying UI of Associations Tab After Creation of new Condition (Test cases only refer to Single Condition Type)
 
-If running this in parallel with another Feature that creates a condition, ensure that the Condition data is different!
-
 Background:
 Given User opens the browser and goes to RxNova URL
 When They enter valid username, valid password and click on Login
@@ -10,10 +8,22 @@ When They check whether the "Condition Home" is displayed
 Then They click on "Conditions New"
 Then They check if the "Conditions Header" is currently showing by checking for "Tracking ID:"
 
+Scenario Outline: Delete the created conditions
+Given The user searches conditions with the following data and deletes them
+ | Tracking ID       | Master customer sset       | Condition ID   | Name        | Status          | Type   | Source        | Field Name   |  Operator       |      Value      |
+ |	<Tracking ID>    | <Master customer set>      | <Condition ID> | <Name>      | <Status>        | <Type> | <Source>      | <Field Name> | <Operator>      |      <Value>    |
+ 
+Examples:
+ | Tracking ID       | Master customer set       | Condition ID   | Name        | Status          | Type   | Source        | Field Name | Operator       |      Value      |
+ |	212154651321468  | Argus Master Customer Set |  00846512      | trsgf       | Ready for Use   | Single | Field         |    NDC     | Is the Same As |   89754612315   | 
+ |	987654321985462  | Argus Master Customer Set |  95432179      | ddfas       | Ready for Use   | Single | Field         |    NDC     | Is the Same As |   54689745612   |
+ |	456132187656453  | Argus Master Customer Set |  31321864      | ghisk       | Ready for Use   | Single | Field         |    NDC     | Is the Same As |   78946541321   |
+ |	654321657987651  | Argus Master Customer Set |  65513157      | lkdfe       | Ready for Use   | Single | Field         |    NDC     | Is the Same As |   81213548774   |
+
 Scenario: Verify Enable of Associations Tab
 Given The user creates a condition with the following data
  | Tracking ID       | Master customer set       | Condition ID   | Name        | Status          | Type   | Source        | Field Name | Operator       |      Value      |
- |	123456789954621  | Argus Master Customer Set |  00100461      | Samyu       | Ready for Use   | Single | Field         |    NDC     | Is the Same As |   00298157935   | 
+ |	212154651321468  | Argus Master Customer Set |  00846512      | trsgf       | Ready for Use   | Single | Field         |    NDC     | Is the Same As |   89754612315   | 
 Then They check whether the Associations is currently enabled after creating a condition
  
 Scenario: Verifying "Association(s)" display
@@ -44,7 +54,7 @@ Given The user searches conditions with the following data and deletes them
  
 Examples:
  | Tracking ID       | Master customer set       | Condition ID   | Name        | Status          | Type   | Source        | Field Name | Operator       |      Value      |
- |	123456789954621  | Argus Master Customer Set |  00100461      | Samyu       | Ready for Use   | Single | Field         |    NDC     | Is the Same As |   00298157935   | 
+ |	212154651321468  | Argus Master Customer Set |  00846512      | trsgf       | Ready for Use   | Single | Field         |    NDC     | Is the Same As |   89754612315   | 
  |	987654321985462  | Argus Master Customer Set |  95432179      | ddfas       | Ready for Use   | Single | Field         |    NDC     | Is the Same As |   54689745612   |
  |	456132187656453  | Argus Master Customer Set |  31321864      | ghisk       | Ready for Use   | Single | Field         |    NDC     | Is the Same As |   78946541321   |
  |	654321657987651  | Argus Master Customer Set |  65513157      | lkdfe       | Ready for Use   | Single | Field         |    NDC     | Is the Same As |   81213548774   |

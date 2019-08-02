@@ -45,6 +45,7 @@ public class LaunchPage extends BasePage {
 		userName.fill(InputUsername);
 		password.fill(InputPassword);
 		
+		getDriver().manage().window().fullscreen();
 
 //		long currDelay = rxNovaCommonUtils.RandomIntegerGenerator(30) * 1000;
 //		System.out.println(currDelay);

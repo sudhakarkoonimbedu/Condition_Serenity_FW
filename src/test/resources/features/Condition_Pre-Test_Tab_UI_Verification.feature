@@ -8,6 +8,19 @@ When They check whether the "Condition Home" is displayed
 Then They click on "Conditions New"
 Then They check if the "Conditions Header" is currently showing by checking for "Tracking ID:"
 
+Scenario Outline: Delete the created conditions
+Given The user searches conditions with the following data and deletes them
+ | Tracking ID       | Master customer sset       | Condition ID   | Name        | Status          | Type   | Source        | Field Name   |  Operator       |      Value      |
+ |	<Tracking ID>    | <Master customer set>      | <Condition ID> | <Name>      | <Status>        | <Type> | <Source>      | <Field Name> | <Operator>      |      <Value>    |
+ 
+Examples:
+ | Tracking ID       | Master customer set       | Condition ID   | Name        | Status          | Type   | Source        | Field Name | Operator       |      Value      |
+ |	654319873204562  | Argus Master Customer Set |  78946182      | asdfa       | Ready for Use   | Single | Field         |    NDC     | Is the Same As |   98753215465   |  
+ |	987613210213546  | Argus Master Customer Set |  45123248      | styur       | Ready for Use   | Single | Field         |    NDC     | Is the Same As |   56454123218   | 
+ |	855133455656784  | Argus Master Customer Set |  21563489      | oiuol       | Ready for Use   | Single | Field         |    NDC     | Is the Same As |   25651321848   | 
+ |	984454651322155  | Argus Master Customer Set |  98756426      | yungf       | Ready for Use   | Single | Field         |    NDC     | Is the Same As |   43567852565   |
+ |	184652132654651  | Argus Master Customer Set |  89754621      | iponm       | Ready for Use   | Single | Field         |    NDC     | Is the Same As |   77757758483   |
+
 Scenario: Verify the enable of the Pre-Test tab
 Given The user creates a condition with the following data
  | Tracking ID       | Master customer set       | Condition ID   | Name        | Status          | Type   | Source        | Field Name | Operator       |      Value      |

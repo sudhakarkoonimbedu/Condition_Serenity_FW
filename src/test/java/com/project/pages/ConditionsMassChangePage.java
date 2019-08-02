@@ -67,7 +67,7 @@ public class ConditionsMassChangePage extends BasePage {
 		return(IsTabDisplayed);
 	}
 	
-	public boolean isFieldClickable(String ObjKey) {
+	public boolean isFieldClickable(String ObjKey) throws InterruptedException {
 		String ObjPath = NewMassChangeMap.get(ObjKey);
 		boolean isClickable = rxNovaCommonUtil.isFieldClickable(ObjPath);
 		return(isClickable);

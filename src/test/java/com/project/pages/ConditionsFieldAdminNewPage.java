@@ -52,7 +52,7 @@ public class ConditionsFieldAdminNewPage extends BasePage {
 		return(IsTabDisplayed);
 	}
 	
-	public boolean isFieldClickable(String ObjKey) {
+	public boolean isFieldClickable(String ObjKey) throws InterruptedException {
 		String ObjPath = ConditionsFieldAdminDetailsMap.get(ObjKey);
 		boolean isClickable = rxNovaCommonUtil.isFieldClickable(ObjPath);
 		return(isClickable);

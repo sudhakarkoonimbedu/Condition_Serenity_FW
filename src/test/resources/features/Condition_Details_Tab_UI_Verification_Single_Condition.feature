@@ -37,7 +37,7 @@ Then They check if the "Conditions Header" is currently showing by checking for 
 Then They check whether the "Conditions Header" is currently enabled
 When They enter the following header data and press "Next"
  | Tracking ID       | Master customer set       | Condition ID   | Name        | Status          | Type   |
- |	123456789954621  | Argus Master Customer Set |  00100461      | Samyu       | Ready for Use   | Single | 
+ |	946543215487451  | Argus Master Customer Set |  65121548      | uyuiw       | Ready for Use   | Single | 
 
 Scenario: Ensuring Disable of Tabs
 Then They check if "Pre-Test" is disabled
@@ -104,6 +104,6 @@ Then User switches windows to most recent window
 When They check whether the "Condition Home" is displayed
 When User enters the following data into Condition Home Search Panel and presses "Conditions Search"
     | Master customer set               | Type       | Condition ID  | Name       |
-    | Argus Master Customer Set         | Single     | 00100461      | Samyu      |
+    | Argus Master Customer Set         | Single     | 65121548      | uyuiw      |
 When They click "Conditions Header Delete"
-Then They enter the following tracking id "123456789954621" and press "Conditions Header 2nd Delete"
+Then They enter the following tracking id "946543215487451" and press "Conditions Header 2nd Delete"

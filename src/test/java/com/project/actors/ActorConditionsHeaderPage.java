@@ -35,7 +35,7 @@ public class ActorConditionsHeaderPage {
 	}
 	
 	@Step
-	public boolean isFieldClickable(String ObjKey) {
+	public boolean isFieldClickable(String ObjKey) throws InterruptedException {
 		boolean isClickable = conditionsHeaderPage.isFieldClickable(ObjKey);
 		Verify.actualExpected(isClickable, true, "'" + ObjKey + "'" + " is not currently clickable");
 		return(isClickable);

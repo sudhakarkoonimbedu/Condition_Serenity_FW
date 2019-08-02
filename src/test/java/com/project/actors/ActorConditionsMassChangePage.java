@@ -42,13 +42,13 @@ public class ActorConditionsMassChangePage extends BasePage {
 	}
 	
 	@Step
-	public void isFieldClickable(String ObjKey) {
+	public void isFieldClickable(String ObjKey) throws InterruptedException {
 		boolean isClickable = conditionsMassChangePage.isFieldClickable(ObjKey);
 		Verify.actualExpected(isClickable, true, ObjKey + "is not clickable");
 	}
 	
 	@Step
-	public void clickIfClickable(String ObjKey) {
+	public void clickIfClickable(String ObjKey) throws InterruptedException {
 		isFieldClickable(ObjKey);
 		conditionsMassChangePage.performClick(ObjKey);
 	}
@@ -182,7 +182,7 @@ public class ActorConditionsMassChangePage extends BasePage {
 	}
 	
 	@Step
-	public void gainInfoFromClickTabs(String ObjKey, String list) {
+	public void gainInfoFromClickTabs(String ObjKey, String list) throws InterruptedException {
 		clickIfClickable(ObjKey);
 		StringTokenizer tokenizer = new StringTokenizer(list, ",");
 		while(tokenizer.hasMoreTokens()) {

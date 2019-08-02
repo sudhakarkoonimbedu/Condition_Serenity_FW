@@ -177,7 +177,7 @@ public class ConditionsDetailsSinglePage extends BasePage {
 		}
 	}
 	
-	public boolean isFieldClickable(String ObjKey) {
+	public boolean isFieldClickable(String ObjKey) throws InterruptedException {
 		String ObjPath = ConditionsHeaderMap.get(ObjKey);
 		boolean isClickable = rxNovaCommonUtil.isFieldClickable(ObjPath);
 		return(isClickable);

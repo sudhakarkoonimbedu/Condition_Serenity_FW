@@ -40,7 +40,7 @@ public class ActorConditionsDetailsPage {
 	}
 	
 	@Step
-	public boolean isFieldClickable(String ObjKey) {
+	public boolean isFieldClickable(String ObjKey) throws InterruptedException {
 		boolean isClickable = conditionsDetailsPage.isFieldClickable(ObjKey);
 		Verify.actualExpected(isClickable, true, "'" + ObjKey + "'" + " is not currently clickable");
 		return(isClickable);
@@ -212,7 +212,13 @@ public class ActorConditionsDetailsPage {
 	public void EnteringTrackingIDforConditionDeletion(String ID, String ObjKey) throws InterruptedException, Throwable {
 		String ObjPath = ConditionsDetailsSinglePage.ConditionsHeaderMap.get("Conditions Header Delete Tracking ID");
 		rxNovaCommonUtil.sendKeysToObject(ObjPath, ID);
+		rxNovaCommonUtil.WaitForBusyIcon();
 		clickIfClickable(ObjKey);
+		rxNovaCommonUtil.WaitForBusyIcon();
+		boolean deleted = rxNovaCommonUtil.ObjectIsDisplayed(ConditionsDetailsSinglePage.ConditionsHeaderMap.get("Conditions Home Search"));
+		if(deleted == true) {
+			Verify.actualExpected(deleted, true, "Condition created was not successfully deleted ... ");
+		}
 	}
 	
 	@Step

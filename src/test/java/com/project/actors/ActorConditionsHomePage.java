@@ -79,13 +79,13 @@ public class ActorConditionsHomePage {
 	}
 	
 	@Step
-	public void isFieldClickable(String ObjKey) {
+	public void isFieldClickable(String ObjKey) throws InterruptedException {
 		boolean isClickable = conditionsHomePage.isFieldClickable(ObjKey);
 		assertTrue(ObjKey + "is not clickable", isClickable);
 	}
 	
 	@Step
-	public void clickIfClickable(String ObjKey) {
+	public void clickIfClickable(String ObjKey) throws InterruptedException {
 		isFieldClickable(ObjKey);
 		conditionsHomePage.performClick(ObjKey);
 	}

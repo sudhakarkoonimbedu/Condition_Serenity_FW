@@ -23,7 +23,7 @@ public class ConditionNewMassChangeUIVerificationSteps {
 	}
 	
 	@When("^They press \"(.*)\"$")
-	public void clickIfClickable(String ObjKey) {
+	public void clickIfClickable(String ObjKey) throws InterruptedException {
 		actorOnConditionsMassChangePage.clickIfClickable(ObjKey);
 	}
 	
@@ -73,7 +73,7 @@ public class ConditionNewMassChangeUIVerificationSteps {
 	}
 	
 	@Then("^They verify that \"(.*)\" contains \"(.*)\"$")
-	public void gainInfoFromClickTabs(String ObjKey, String list) {
+	public void gainInfoFromClickTabs(String ObjKey, String list) throws InterruptedException {
 		actorOnConditionsMassChangePage.gainInfoFromClickTabs(ObjKey, list);
 	}
 	
