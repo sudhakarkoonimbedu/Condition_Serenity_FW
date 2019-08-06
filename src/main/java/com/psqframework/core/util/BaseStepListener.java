@@ -24,30 +24,30 @@ public class BaseStepListener implements StepListener {
 
 	public void testSuiteStarted(final Class<?> testCase) {
 		Log.info("test suite started");
-		//custom driver implementation
-		if(System.getProperty("MavenChromeDriverVersion")==null)
-		{					
-			WebDriverManager.chromedriver().setup();	
-		}else{				
-			String driverVersion = System.getProperty("MavenChromeDriverVersion");
-			WebDriverManager.chromedriver().setup();
-			WebDriverManager.chromedriver().version(driverVersion);
-			System.out.println("Downloading specified Chrome Version " + driverVersion);
-		}
+		/*
+		 * //custom driver implementation
+		 * if(System.getProperty("MavenChromeDriverVersion")==null) {
+		 * WebDriverManager.chromedriver().setup(); }else{ String driverVersion =
+		 * System.getProperty("MavenChromeDriverVersion");
+		 * WebDriverManager.chromedriver().setup();
+		 * WebDriverManager.chromedriver().version(driverVersion);
+		 * System.out.println("Downloading specified Chrome Version " + driverVersion);
+		 * }
+		 */
 	}
 
 	public void testSuiteStarted(final Story story) {
 		Log.info("test suite started");
-		//custom driver implementation
-		if(System.getProperty("MavenChromeDriverVersion")==null)
-		{					
-			WebDriverManager.chromedriver().setup();	
-		}else{				
-			String driverVersion = System.getProperty("MavenChromeDriverVersion");
-			WebDriverManager.chromedriver().setup();
-			WebDriverManager.chromedriver().version(driverVersion);
-			System.out.println("Downloading specified Chrome Version " + driverVersion);
-		}
+		/*
+		 * //custom driver implementation
+		 * if(System.getProperty("MavenChromeDriverVersion")==null) {
+		 * WebDriverManager.chromedriver().setup(); }else{ String driverVersion =
+		 * System.getProperty("MavenChromeDriverVersion");
+		 * WebDriverManager.chromedriver().setup();
+		 * WebDriverManager.chromedriver().version(driverVersion);
+		 * System.out.println("Downloading specified Chrome Version " + driverVersion);
+		 * }
+		 */
 	}
 
 	public void testStarted(final String testName) {
