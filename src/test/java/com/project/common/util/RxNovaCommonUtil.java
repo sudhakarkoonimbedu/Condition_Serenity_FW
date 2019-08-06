@@ -33,7 +33,14 @@ public class RxNovaCommonUtil extends BasePage{
 	private String RxNova_URL;		
 	public static boolean isProduction;
 	
-	
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Method: NavigateApplicationMenu
+	// Return Type: void
+	// Description: Using a specified path string, this method navigates to the desired Application within RxNova. 
+	// Parameters: String strAppMenu 
+	// Example:
+	// Author:
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	public void NavigateApplicationMenu(String strAppMenu) throws InterruptedException
     {
            //try
@@ -178,6 +185,14 @@ public class RxNovaCommonUtil extends BasePage{
 //	}
 //	
 	
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Method: RxNova_PageSelection
+	// Return Type: void
+	// Description: This method loads the correct application based on the name of the application. Refreshes page until the app loads properly. 
+	// Parameters: String strAppName
+	// Example:
+	// Author:
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	public void RxNova_PageSelection(String strAppName) throws Throwable
 	{
 		String SelectApp;
@@ -220,7 +235,15 @@ public class RxNovaCommonUtil extends BasePage{
 		}	
 	}
 	
-
+	
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Method: ClickOnButton
+	// Return Type: void
+	// Description: Given a By WebElement, this method clicks on it. If the object does not exist, then the object is not found and not clicked.
+	// Parameters: By objElementName -- marker for desired WebElement
+	// Example:
+	// Author:
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	public void ClickOnButton(By objElementName)
 	{
 		Boolean boolClickOnButton=false;		
@@ -238,7 +261,14 @@ public class RxNovaCommonUtil extends BasePage{
 		}
 	}
 	
-	
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Method: ClickOnButton
+	// Return Type: void
+	// Description: Given the string of text on a button, this method clicks on the corresponding button. If the text cannot be found on any button in the page, then the object is not found and not clicked.
+	// Parameters: String strBtnName -- string label on button
+	// Example:
+	// Author:
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	public void ClickOnButton(String strBtnName)
     {
 		Boolean boolClickOnButton=false;		
@@ -255,7 +285,14 @@ public class RxNovaCommonUtil extends BasePage{
          }                  
     }
 
-	
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Method: ClickOnLink
+	// Return Type: void
+	// Description: Given a By WebElement for a link, this method attempts to click on it. It tries a maximum of three times. If the link does not exist, then the link is not found and not clicked.
+	// Parameters: By objElementName -- name of link
+	// Example:
+	// Author:
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	public void ClickOnLink(By objElementName) throws Throwable
 	{
 		Boolean boolClickOnLink=false;	
@@ -284,7 +321,14 @@ public class RxNovaCommonUtil extends BasePage{
 		}
 	}
 	
-	
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Method: GetBusyStatus
+	// Return Type: void
+	// Description: This method waits until the loading icon is no longer shown on the page.
+	// Parameters: void
+	// Example:
+	// Author:
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	public void GetBusyStatus() throws Throwable 
 	{
 		try
@@ -323,13 +367,28 @@ public class RxNovaCommonUtil extends BasePage{
 		}
 	}
 	
-	
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Method: WaitUnitWebListisLoaded
+	// Return Type: void
+	// Description: Given a WebElement referring to a WebList, this method waits until the list has loaded.
+	// Parameters: WebElement objlist
+	// Example:
+	// Author:
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	public void WaitUnitWebListisLoaded(WebElement objlist) throws InterruptedException
 	{
 		WebDriverWait waitDriver = new WebDriverWait(getDriver(),60);	
 		waitDriver.until(ExpectedConditions.attributeToBeNotEmpty(objlist,"innerHTML"));	
 	}
 	
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Method: WaitUntilWebElementExist
+	// Return Type: void
+	// Description: Given a By WebElement referring to an object, this method waits until that element exists on the page. Simply uses WebDriverWait (not a try-catch implementation).
+	// Parameters: By strItem
+	// Example:
+	// Author:
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	public void WaitUntilWebElementExist(By strItem) throws Throwable
 	{	
 		/*try
@@ -348,14 +407,30 @@ public class RxNovaCommonUtil extends BasePage{
 		}*/	
 		
 	}
-
 	
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Method: CheckElementPresenceByLocator
+	// Return Type: boolean
+	// Description: Given a locator, this method simply checks if the element exists on the page.
+	// Parameters: By LocatorValue
+	// Example:
+	// Author:
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~	
 	public boolean CheckElementPresenceByLocator(By LocatorValue) throws Throwable
 	{
 		WaitUntilWebElementExist(LocatorValue);
 		return getDriver().findElements(LocatorValue).size() != 0;		
 	}
 	
+	
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Method: SwithToMostRecentWindow
+	// Return Type: void
+	// Description: Goes to newest tab opened.
+	// Parameters: void
+	// Example:
+	// Author:
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	public void SwithToMostRecentWindow() throws InterruptedException	
 	{		
 		for(String WHandles: getDriver().getWindowHandles())
@@ -367,7 +442,14 @@ public class RxNovaCommonUtil extends BasePage{
 	
 	}
 	
-	
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Method: SelectItemFromWebListByNameAndHyphen
+	// Return Type: void 
+	// Description: 
+	// Parameters:
+	// Example:
+	// Author:
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	public void SelectItemFromWebListByNameAndHyphen(By objElementName, String strValue) throws InterruptedException
 	{
 		Boolean boolSelectItemFromWebListByNameAndHyphen=false;
@@ -429,7 +511,14 @@ public class RxNovaCommonUtil extends BasePage{
 	}
 	
 	
-	
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Method: SelectItemFromWebListByPartialDisplayName
+	// Return Type: void 
+	// Description: 
+	// Parameters:
+	// Example:
+	// Author:
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	public void SelectItemFromWebListByPartialDisplayName(By objElementName, String strValue) throws InterruptedException
 	{
 		Boolean boolSelectItemFromWebListByPartialDisplayName=false;
@@ -472,7 +561,14 @@ public class RxNovaCommonUtil extends BasePage{
 		 }
 	}
 	
-	
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Method: SelectItemFromWebListByPartialDisplayName
+	// Return Type: void 
+	// Description: This method types in a string into a text edit field that has Intellisense functionality, and clicks the required text for the field.
+	// Parameters: By objElementName -- text edit field object, String strValue -- the string that we want typed in the text edit field.
+	// Example:
+	// Author:
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	public void SelectValueFromFieldIntellisence(By objElementName, String strValue) throws Throwable
 	{
 		Boolean boolSelectValueFromFieldIntellisence=false;
@@ -505,7 +601,14 @@ public class RxNovaCommonUtil extends BasePage{
 		
 	}
 	
-	
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Method: CheckPageLoad
+	// Return Type: void 
+	// Description: This method waits until the contentFrame of a page is loaded.
+	// Parameters: void
+	// Example:
+	// Author:
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	public void CheckPageLoad() throws InterruptedException
 	{
 		if(!getDriver().findElement(By.id("contentFrame")).isDisplayed()) 
@@ -515,7 +618,14 @@ public class RxNovaCommonUtil extends BasePage{
 		}	
 	}
 	
-	
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Method: startTime
+	// Return Type: long 
+	// Description: Returns current time as a long using (new Date();)
+	// Parameters: void
+	// Example:
+	// Author:
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	public long startTime()
 	{
 		Date d1 = new Date();
@@ -523,6 +633,14 @@ public class RxNovaCommonUtil extends BasePage{
 		return d1.getTime();
 	}
 	
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Method: TimeDifference
+	// Return Type: void
+	// Description: Prints difference between previously saved input time and current time using (new Date();)
+	// Parameters: long inputTime -- previously saved time
+	// Example:
+	// Author:
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	public void TimeDifference(long inputTime)
 	{
 		Date d2 = new Date();
@@ -530,6 +648,14 @@ public class RxNovaCommonUtil extends BasePage{
 		System.out.println("time difference is " + timedifference/1000);		
 	}
 	
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Method: CheckBusyState
+	// Return Type: String
+	// Description: Waits until loading icon is no longer displayed and returns "style" attricute of loading icon. 
+	// Parameters: void
+	// Example:
+	// Author:
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	public String CheckBusyState() throws InterruptedException {
 		Thread.sleep(1000);
 		WebElement BusyElement = getDriver().findElement(By.id("loading"));
@@ -560,7 +686,14 @@ public class RxNovaCommonUtil extends BasePage{
 		wt.until(ExpectedConditions.invisibilityOf(busyElement));
 	}
 
-	
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Method: NavigateApplication
+	// Return Type: void
+	// Description: Given the name of the desired application, this method generates the path required to navigate from the landing page to the desired application; subsequently calls the NavigateApplicationMenu function with the generated application path.
+	// Parameters: String ApplicationPath
+	// Example:
+	// Author:
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	public void NavigateApplication(String ApplicationPath) throws Throwable {		
 //		System.out.println("-----------Landing Page user navigates to Conditions application -------------");
 //		WebElement Apps = getDriver().findElement(By.xpath("//md-icon[contains(text(),'apps')]"));
@@ -677,6 +810,15 @@ public class RxNovaCommonUtil extends BasePage{
 		}
 	}	
 
+	
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Method: renameFile
+	// Return Type: String (returns new file name)
+	// Description: Renames a file with the current date. Prints success/failure of rename to console.
+	// Parameters: String fileToRename -- file handle for file that needs to be renamed
+	// Example:
+	// Author:
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	public String renameFile(String fileToRename) throws InterruptedException {
 		Thread.sleep(8000);
 		
@@ -699,12 +841,27 @@ public class RxNovaCommonUtil extends BasePage{
 		
 	}
 	
-
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Method: switchToContentFrame
+	// Return Type: void
+	// Description: Switches to contenFrame on current page.
+	// Parameters: void
+	// Example:
+	// Author:
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	public void switchToContentFrame() {
 		getDriver().switchTo().defaultContent();
 		getDriver().switchTo().frame(0);
 	}
 	
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Method: LaunchRandomizerInt
+	// Return Type: int
+	// Description: Uses a public static int to randomize login actions when multiple browsers are running in parallel.
+	// Parameters: String fileToRename -- file handle for file that needs to be renamed
+	// Example:
+	// Author:
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	public static int numBrowsers = 0;
 	
 	public int LaunchRandomizerInt() {
@@ -712,6 +869,15 @@ public class RxNovaCommonUtil extends BasePage{
 		return(++numBrowsers);
 	}
 	
+	
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Method: navigateToRxNovaApplication
+	// Return Type: void
+	// Description: Uses property file or Maven Region to determine the correct RxNova link that needs to be tested for the desired application/region under test.
+	// Parameters: void
+	// Example:
+	// Author:
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	public void navigateToRxNovaApplication() 
 	{			
 		System.out.println("-----------Open firefox and start RxNova Application-------------");				
@@ -776,6 +942,14 @@ public class RxNovaCommonUtil extends BasePage{
 		System.out.println("-----------Completed Open firefox and start RxNova Application-------------");
 	}
 
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Method: ObjectIsDisplayed
+	// Return Type: void
+	// Description: Given the xpath of an object, determines if the object is displayed. Try-Catch Implementation. 
+	// Parameters: String ObjPath -- xpath
+	// Example:
+	// Author:
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	public boolean ObjectIsDisplayed(String ObjPath) throws InterruptedException {
 		int cnt = 0;
 		boolean displayed = false;
@@ -796,6 +970,15 @@ public class RxNovaCommonUtil extends BasePage{
 		return(displayed);
 	}
 
+	
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Method: ObjectContainsExpectedText
+	// Return Type: boolean
+	// Description: Given an xpath, determines whether an object contains the correct expected Display. 
+	// Parameters: String ObjPath -- xpath, String expectedDisplay
+	// Example:
+	// Author:
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	public boolean ObjectContainsExpectedText(String ObjPath, String expectedDisplay) {
 		System.out.println("The following are the text strings contained in the WebElement of the following xpath: " + ObjPath);
 		System.out.println($(ObjPath).getText());
@@ -803,6 +986,15 @@ public class RxNovaCommonUtil extends BasePage{
 		return(containsExpected);
 	}
 
+	
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Method: checkCurrentFieldDisplay
+	// Return Type: boolean
+	// Description: Given an xpath for a text field, determines whether the text field currently contains the correct expected Display. 
+	// Parameters: String ObjPath -- xpath, String expectedDisplay
+	// Example:
+	// Author:
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	public boolean checkCurrentFieldDisplay(String ObjPath, String expectedDisplay) {
 		String currText = $(ObjPath).getText();
 		System.out.println("This is the current xpath " + "... " + ObjPath + " following is current text display of object.");
@@ -821,6 +1013,15 @@ public class RxNovaCommonUtil extends BasePage{
 		return(match);
 	}
 	
+	
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Method: MCScheckContents
+	// Return Type: boolean
+	// Description: Given the "Master customer set:" xpath, determines whether the master customer set dropdown list contains items.
+	// Parameters: String ObjPath -- xpath
+	// Example:
+	// Author:
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	public boolean MCScheckContents(String ObjPath) {
 		System.out.println("Checking whether Master Customer Set dropdown contains list ...");
 		List<String> options = $(ObjPath).getSelectOptions();
@@ -834,6 +1035,14 @@ public class RxNovaCommonUtil extends BasePage{
 		return(hasContents);
 	}
 
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Method: DropdownCheckContents
+	// Return Type: boolean
+	// Description: Given the xpath for a dropdown list, checks whether the dropdown contains expected contents. The expectedContents string is a comma-separated string. String Tokenizer is implemented to split the expected string and compare to items in dropdown.
+	// Parameters: String expected -- comma-separated expectedContents string, String ObjPath -- xpath
+	// Example:
+	// Author:
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	public boolean DropdownCheckContents(String expected, String ObjPath) {
 		List<String> options = $(ObjPath).getSelectOptions();
 		boolean hasContents = options.size() > 1;
@@ -860,6 +1069,14 @@ public class RxNovaCommonUtil extends BasePage{
 		return(hasContents);
 	}
 	
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Method: TableCheckContents
+	// Return Type: boolean
+	// Description: Given the xpath for a table, checks whether the table contains field names. The expectedFieldNames string is a comma-separated string. String Tokenizer is implemented to split the expected string and compare to items in table.
+	// Parameters: String expected -- comma-separated expectedContents string, String ObjPath -- xpath
+	// Example:
+	// Author:
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	public boolean TableCheckContents(String expected, String ObjPath) {
 		String options = $(ObjPath).getText();
 		boolean hasContents = true;
@@ -882,6 +1099,14 @@ public class RxNovaCommonUtil extends BasePage{
 		return(hasContents);
 	}
 	
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Method: isFieldClickable
+	// Return Type: boolean
+	// Description: Given the xpath for a text edit field or button, determines whether it is clickable.
+	// Parameters: String ObjPath -- xpath
+	// Example:
+	// Author:
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	public boolean isFieldClickable(String ObjPath) throws InterruptedException {
 		
 		int cnt = 0;
@@ -903,11 +1128,28 @@ public class RxNovaCommonUtil extends BasePage{
 		return(clickable);
 	}
 	
+	
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Method: performClick
+	// Return Type: void
+	// Description: Given an xpath for an object, clicks on the object. 
+	// Parameters: String ObjPath -- xpath
+	// Example:
+	// Author:
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	public void performClick(String ObjPath) {
 		System.out.println("Element associated with this xpath will be clicked on ..." + "...xpath = " + ObjPath);
 		$(ObjPath).click();
 	}
 	
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Method: ObjectIsDisabled
+	// Return Type: boolean
+	// Description: Given the xpath for a button/object, determines whether it is currently disabled by getting class attribute.
+	// Parameters: String ObjPath -- xpath
+	// Example:
+	// Author:
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	public boolean ObjectIsDisabled(String ObjPath) {
 		System.out.println("Determining whether object of following xpath is disabled: " + "...xpath = " + ObjPath);
 		String isDisabled = $(ObjPath).getAttribute("class");
@@ -926,11 +1168,27 @@ public class RxNovaCommonUtil extends BasePage{
 		return(disabled);	
 	}
 	
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Method: IsTabProperlyDisplayed
+	// Return Type: boolean
+	// Description: Given the xpath for a child object within a parent tab under an application in RxNova, determines whether the tab is currently displayed. 
+	// Parameters: String ChildObjPath -- xpath
+	// Example:
+	// Author:
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	public boolean IsTabProperlyDisplayed(String ChildObjPath) {
 		boolean IsTabDisplayed = getDriver().findElements(By.xpath(ChildObjPath)).size() > 0;
 		return(IsTabDisplayed);
 	}
 	
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Method: IsTabProperlyDisplayed
+	// Return Type: String
+	// Description: Given an input target string length, this method generates a random ID.
+	// Parameters: int targetStringLength
+	// Example:
+	// Author:
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	public String FieldIDGenerator(int targetStringLength) {
 		final String values = "12345678912345678912345";
 		int valuesLen = values.length();
@@ -953,10 +1211,26 @@ public class RxNovaCommonUtil extends BasePage{
 		}
 	}
 	
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Method: sendKeysToObject
+	// Return Type: void
+	// Description: Given an xpath and a string to be entered in the field associated with that xpath, sends those keys to be entered to the field.
+	// Parameters: String ObjPath -- xpath, String toEnter -- keys desired to be sent to text edit field
+	// Example:
+	// Author:
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	public void sendKeysToObject(String ObjPath, String toEnter) {
 		$(ObjPath).sendKeys(toEnter);
 	}
 	
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Method: WordGenerator
+	// Return Type: String 
+	// Description: Generates a random 8-character seed.  
+	// Parameters: void
+	// Example:
+	// Author:
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	public String WordGenerator() {
 		final String values = "abcdefghijklmnopqrstuvwxyz";
 		int valuesLen = values.length();
@@ -968,6 +1242,14 @@ public class RxNovaCommonUtil extends BasePage{
 		return(id);
 	}
 	
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Method: RandomIntegerGenerator
+	// Return Type: int  
+	// Description: Given a maximum ceiling value, this method generates an integer between zero and the given maxValue. 
+	// Parameters: int maxValue 
+	// Example:
+	// Author:
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	public int RandomIntegerGenerator(int maxValue) {
 		Random rnd = new Random();
 		System.out.println("here is" + maxValue);
@@ -976,6 +1258,14 @@ public class RxNovaCommonUtil extends BasePage{
 		return(randomInt);
 	}
 	
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Method: selectFromDropdownUsingIndex
+	// Return Type: void
+	// Description: Selects from dropdown xpath using index attribute.
+	// Parameters: int index, String ObjPath -- xpath
+	// Example:
+	// Author:
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	public void selectFromDropdownUsingIndex(int index, String ObjPath) {
 		WebElement currElement = getDriver().findElement(By.xpath(ObjPath));
 		Select drop = new Select(currElement);
