@@ -24,12 +24,12 @@ public class BaseStepListener implements StepListener {
 
 	public void testSuiteStarted(final Class<?> testCase) {
 		Log.info("test suite started");
-		WebDriverManager.chromedriver().setup();
+//		WebDriverManager.chromedriver().setup();
 	}
 
 	public void testSuiteStarted(final Story story) {
 		Log.info("test suite started");
-		WebDriverManager.chromedriver().setup();
+//		WebDriverManager.chromedriver().setup();
 	}
 
 	public void testStarted(final String testName) {
