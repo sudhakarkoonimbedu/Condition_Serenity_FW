@@ -10,6 +10,24 @@ Then They click on "Mass Change"
 Then They check if "Mass Change" is displaying by checking for "Mass Change Search Panel"
 Then They press "New"
 
+Scenario Outline: User deletes created Mass Change Requests
+Then User deletes newly submitted mass change request
+       |Tracking ID   |  Reason   | Notes | Master customer set |Name  | Type | Status  | Description |
+       |<Tracking ID> |<Reason>   |<Notes>|<Master customer set>|<Name>|<Type>|<Status> |<Description>|
+       
+Examples:
+	   |Tracking ID            |  Reason   | Notes | Master customer set |Name       | Type        | Status  |Description |
+	   |984651233323543        | Test      | Test  |    QTP_Master_1     | Support1  | Mass Change | Pending |    Testing |
+	   |897654321015651        | Test      | Test  | QTP_Master_1        |  Support2 | Mass Change | Pending |    Testing |
+	   |780456789456123        | Test      | Test  | QTP_Master_1        |  Support3 | Mass Change | Pending |    Testing |
+	   |654321548975654		   | Test      | Test  | QTP_Master_1        | Support4  | Mass Change | Pending |    Testing |
+	   |216543587654312        | Test      | Test  | QTP_Master_1        |  Support6 | Mass Change | Pending |    Testing |
+	   |156488816132148        | Test      | Test  | QTP_Master_1        |  Support7 | Mass Change | Pending |    Testing |
+	   |8946463124684685       | Test      | Test  | QTP_Master_1        |  Support8 | Mass Change | Pending |    Testing |
+	   |6532145464212356       | Test      | Test  | QTP_Master_1        |  Support9 | Mass Change | Pending |    Testing |
+	   |2133546478646511       | Test      | Test  | QTP_Master_1        |  Support10| Mass Change | Pending |    Testing |
+	   |369654321421884        | Test      | Test  | QTP_Master_1        |  Support11| Mass Change | Pending |    Testing |
+
 Scenario: Verify labels in New Mass Change Request screen
 Given They check if "New Mass Change Request" is displaying by checking for "Tracking ID:"
 Then The determine whether "New Mass Change Panel" contains "Tracking ID,Reason,Notes,Master customer set,Name,Type,Status,Description"
