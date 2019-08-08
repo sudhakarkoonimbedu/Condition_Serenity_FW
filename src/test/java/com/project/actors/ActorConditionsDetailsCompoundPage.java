@@ -28,7 +28,7 @@ public class ActorConditionsDetailsCompoundPage {
 			styleLoad = rxNovaCommonUtil.CheckBusyState();
 			isDisplayed = conditionsDetailsCompoundPage.IsTabProperlyDisplayed(ChildObjKey);
 		}
-		rxNovaCommonUtil.WaitForBusyIcon();
+		rxNovaCommonUtil.CheckBusyState();
 		Verify.actualExpected(isDisplayed, true, ObjKey + " is not properly displayed");
 	}
 	

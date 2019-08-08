@@ -17,7 +17,7 @@ public class ConditionDetailsUIVerificationSteps {
 	RxNovaCommonUtil rxNovaCommonUtil;
 	
 	@Then("^They check whether the \"(.*)\" is currently enabled$")
-	public void ObjectIsCurrentlyEnabled(String ObjKey) {
+	public void ObjectIsCurrentlyEnabled(String ObjKey) throws InterruptedException {
 		actorOnConditionsDetailsPage.ObjectIsCurrentlyEnabled(ObjKey);
 	}
 	
@@ -113,7 +113,7 @@ public class ConditionDetailsUIVerificationSteps {
 	
 	@Then("^They check if the \"(.*)\" is currently showing by checking for \"(.*)\" after creating a condition$")
 	public void verifyAssociationsDisplay(String ObjKey, String ChildObjKey) throws Throwable {
-		rxNovaCommonUtil.WaitForBusyIcon();
+		rxNovaCommonUtil.CheckBusyState();
 		actorOnConditionsDetailsPage.verifyAssociationsDisplay(ObjKey, ChildObjKey);
 	}
 	

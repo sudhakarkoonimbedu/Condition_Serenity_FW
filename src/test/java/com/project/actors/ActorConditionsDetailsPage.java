@@ -31,7 +31,7 @@ public class ActorConditionsDetailsPage {
 	ActorConditionsHomePage actorOnConditionsHomePage;
 	
 	@Step
-	public void ObjectIsCurrentlyEnabled(String ObjKey) {
+	public void ObjectIsCurrentlyEnabled(String ObjKey) throws InterruptedException {
 		boolean isEnabled = conditionsDetailsPage.ObjectIsCurrentlyEnabled(ObjKey);
 		Verify.actualExpected(isEnabled, true, "'" + ObjKey + "'" + " is not currently enabled");
 		if(isEnabled == true) {
@@ -89,7 +89,7 @@ public class ActorConditionsDetailsPage {
 			styleLoad = rxNovaCommonUtil.CheckBusyState();
 			isTabDisplayed = conditionsDetailsPage.IsTabProperlyDisplayed(ChildObjKey);
 		}
-		rxNovaCommonUtil.WaitForBusyIcon();
+		rxNovaCommonUtil.CheckBusyState();
 		Verify.actualExpected(isTabDisplayed, true, "'" + ObjKey + "'" + " is not Displayed");
 	}
 	
@@ -212,9 +212,9 @@ public class ActorConditionsDetailsPage {
 	public void EnteringTrackingIDforConditionDeletion(String ID, String ObjKey) throws InterruptedException, Throwable {
 		String ObjPath = ConditionsDetailsSinglePage.ConditionsHeaderMap.get("Conditions Header Delete Tracking ID");
 		rxNovaCommonUtil.sendKeysToObject(ObjPath, ID);
-		rxNovaCommonUtil.WaitForBusyIcon();
+		rxNovaCommonUtil.CheckBusyState();
 		clickIfClickable(ObjKey);
-		rxNovaCommonUtil.WaitForBusyIcon();
+		rxNovaCommonUtil.CheckBusyState();
 		boolean deleted = rxNovaCommonUtil.ObjectIsDisplayed(ConditionsDetailsSinglePage.ConditionsHeaderMap.get("Conditions Home Search"));
 		if(deleted == true) {
 			Verify.actualExpected(deleted, true, "Condition created was not successfully deleted ... ");
@@ -250,7 +250,7 @@ public class ActorConditionsDetailsPage {
 	
 	@Step
 	public void verifyingTableContents(String expected, String ObjKey) throws Throwable {
-		rxNovaCommonUtil.WaitForBusyIcon();
+		rxNovaCommonUtil.CheckBusyState();
 		List<String> TableElementKeys = new ArrayList<String>(Arrays.asList(expected.split(",")));
 		
 		
@@ -282,24 +282,24 @@ public class ActorConditionsDetailsPage {
 		System.out.println("Status: " + data.get(1).get(4));
 		/////////////////////////////
 		conditionsHomePage.mySelectFromDropdown(data.get(1).get(1), "Master customer set:");
-		rxNovaCommonUtil.WaitForBusyIcon();
+		rxNovaCommonUtil.CheckBusyState();
 		conditionsHomePage.mySelectFromDropdown(data.get(1).get(5), "Type:");
-		rxNovaCommonUtil.WaitForBusyIcon();
+		rxNovaCommonUtil.CheckBusyState();
 		conditionsHomePage.SendKeysToField(data.get(1).get(2), "Condition ID:");
-		rxNovaCommonUtil.WaitForBusyIcon();
+		rxNovaCommonUtil.CheckBusyState();
 		conditionsHomePage.SendKeysToField(data.get(1).get(3), "Name:");
-		rxNovaCommonUtil.WaitForBusyIcon();
+		rxNovaCommonUtil.CheckBusyState();
 		conditionsHomePage.mySelectFromDropdown(data.get(1).get(4), "Status:");
-		rxNovaCommonUtil.WaitForBusyIcon();
+		rxNovaCommonUtil.CheckBusyState();
 		clickIfClickable("Conditions Home Search");
-		rxNovaCommonUtil.WaitForBusyIcon();
+		rxNovaCommonUtil.CheckBusyState();
 //		String ObjPath = ConditionsDetailsSinglePage.ConditionsHeaderMap.get("Conditions Header Delete");
 //		WebElement DeleteObj = conditionsDetailsPage.find(By.xpath(ObjPath));
 //		rxNovaCommonUtil.waitFor(DeleteObj);
 		clickIfClickable("Conditions Header Delete");
-		rxNovaCommonUtil.WaitForBusyIcon();
+		rxNovaCommonUtil.CheckBusyState();
 		EnteringTrackingIDforConditionDeletion(data.get(1).get(0), "Conditions Header 2nd Delete");
-		rxNovaCommonUtil.WaitForBusyIcon();
+		rxNovaCommonUtil.CheckBusyState();
 		String ObjPath = ConditionsHomePage.ConditionsHomeMap.get("Condition Deleted Message");
 		WebElement DeleteObj = conditionsHomePage.find(By.xpath(ObjPath));
 		rxNovaCommonUtil.waitFor(DeleteObj);

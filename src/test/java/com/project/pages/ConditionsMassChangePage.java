@@ -85,7 +85,7 @@ public class ConditionsMassChangePage extends BasePage {
 	}
 	
 	public boolean checkPanelLabelsKnowingClass(String currClass, String label) throws InterruptedException {
-		rxNovaCommonUtil.WaitForBusyIcon();
+		rxNovaCommonUtil.CheckBusyState();
 		List<WebElement> pageLabels = getDriver().findElements(By.className(currClass));
 		boolean labelMatch = false;
 		for(WebElement i: pageLabels) {
@@ -99,7 +99,7 @@ public class ConditionsMassChangePage extends BasePage {
 	}
 	
 	public boolean checkDetailsPanelForCorrectLabels(String label) throws InterruptedException {
-		rxNovaCommonUtil.WaitForBusyIcon();
+		rxNovaCommonUtil.CheckBusyState();
 		List<WebElement> pageLabels = getDriver().findElements(By.className("firstCommonColumn"));
 		List<WebElement> newList = new ArrayList<WebElement>();
 		newList.addAll(pageLabels);
@@ -160,7 +160,7 @@ public class ConditionsMassChangePage extends BasePage {
 	}
 	
 	public boolean checkRequestEditPanel(String label) throws InterruptedException {
-		rxNovaCommonUtil.WaitForBusyIcon();
+		rxNovaCommonUtil.CheckBusyState();
 		List<WebElement> pageLabels = new ArrayList<WebElement>(getDriver().findElements(By.className("firstCommonColumn")));
 		pageLabels.addAll(getDriver().findElements(By.className("masschangeInformationfirstColumn")));
 		boolean labelMatch = false;

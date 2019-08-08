@@ -27,7 +27,7 @@ public class ActorConditionsReportingPage {
 			styleLoad = rxNovaCommonUtil.CheckBusyState();
 			isTabDisplayed = conditionsReportingPage.IsTabProperlyDisplayed(ChildObjKey);
 		}
-		rxNovaCommonUtil.WaitForBusyIcon();
+		rxNovaCommonUtil.CheckBusyState();
 		Verify.actualExpected(isTabDisplayed, true, "'" + ObjKey + "'" + " is not Displayed");
 	}
 	

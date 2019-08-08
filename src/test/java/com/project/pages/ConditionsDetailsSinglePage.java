@@ -77,9 +77,9 @@ public class ConditionsDetailsSinglePage extends BasePage {
 		ConditionsHeaderMap = Collections.unmodifiableMap(tmp);
 	}	
 	
-	public boolean ObjectIsCurrentlyEnabled(String ObjKey) {
+	public boolean ObjectIsCurrentlyEnabled(String ObjKey) throws InterruptedException {
 		String ObjPath = ConditionsHeaderMap.get(ObjKey);
-		rxNovaCommonUtil.WaitForBusyIcon();
+		rxNovaCommonUtil.CheckBusyState();
 		return($(ObjPath).isCurrentlyEnabled());
 	}
 	
@@ -227,7 +227,7 @@ public class ConditionsDetailsSinglePage extends BasePage {
 	
 	public boolean verifyingTableContents(String expected, String ObjKey) throws InterruptedException {
 		String ObjPath = ConditionsHeaderMap.get(ObjKey);
-		rxNovaCommonUtil.WaitForBusyIcon();
+		rxNovaCommonUtil.CheckBusyState();
 		boolean hasContents = rxNovaCommonUtil.TableCheckContents(expected, ObjPath);
 		return(hasContents);
 	}

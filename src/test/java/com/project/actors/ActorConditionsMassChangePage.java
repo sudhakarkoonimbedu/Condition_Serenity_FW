@@ -37,7 +37,7 @@ public class ActorConditionsMassChangePage extends BasePage {
 			styleLoad = rxNovaCommonUtil.CheckBusyState();
 			isTabDisplayed = conditionsMassChangePage.IsTabProperlyDisplayed(ChildObjKey);
 		}
-		rxNovaCommonUtil.WaitForBusyIcon();
+		rxNovaCommonUtil.CheckBusyState();
 		Verify.actualExpected(isTabDisplayed, true, "'" + ObjKey + "'" + " is not Displayed");
 	}
 	
@@ -145,14 +145,14 @@ public class ActorConditionsMassChangePage extends BasePage {
 	}
 	
 	@Step public void deleteRequest() throws InterruptedException {
-		rxNovaCommonUtil.WaitForBusyIcon();
+		rxNovaCommonUtil.CheckBusyState();
 		WebElement RequestAction = getDriver().findElement(By.xpath(ConditionsMassChangePage.NewMassChangeMap.get("Request Action Tab")));
 		rxNovaCommonUtil.waitFor(RequestAction);
 		clickIfClickable("Request Action Tab");
 		clickIfClickable("Delete Request");
-		rxNovaCommonUtil.WaitForBusyIcon();
+		rxNovaCommonUtil.CheckBusyState();
 		clickIfClickable("Yes Delete Request");
-		rxNovaCommonUtil.WaitForBusyIcon();
+		rxNovaCommonUtil.CheckBusyState();
 		boolean MassChangeHomeExists = conditionsMassChangePage.ObjectIsDisplayed("Mass Change Search Panel");
 		Verify.actualExpected(MassChangeHomeExists, true, "Deletion of Mass Change Request did not occur properly");
 	}
@@ -165,7 +165,7 @@ public class ActorConditionsMassChangePage extends BasePage {
 		SendKeysToField(data.get(1).get(1), "Last name:");
 		SendKeysToField(data.get(1).get(2), "First name:");
 		clickIfClickable("Search");
-		rxNovaCommonUtil.WaitForBusyIcon();
+		rxNovaCommonUtil.CheckBusyState();
 	}
 	
 	@Step 
@@ -178,7 +178,7 @@ public class ActorConditionsMassChangePage extends BasePage {
 		SendKeysToField(dateformat.format(new Date()), "From date:");
 		SendKeysToField(dateformat.format(new Date()), "To date:");
 		clickIfClickable("Search");
-		rxNovaCommonUtil.WaitForBusyIcon();
+		rxNovaCommonUtil.CheckBusyState();
 	}
 	
 	@Step

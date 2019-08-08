@@ -29,7 +29,7 @@ public class ActorConditionsFieldAdminNew {
 			styleLoad = rxNovaCommonUtil.CheckBusyState();
 			isTabDisplayed = conditionsFieldAdminDetails.IsTabProperlyDisplayed(ChildObjKey);
 		}
-		rxNovaCommonUtil.WaitForBusyIcon();
+		rxNovaCommonUtil.CheckBusyState();
 		Verify.actualExpected(isTabDisplayed, true, "'" + ObjKey + "'" + " is not Displayed");
 	}
 	

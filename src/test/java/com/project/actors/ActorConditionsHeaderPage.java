@@ -83,7 +83,7 @@ public class ActorConditionsHeaderPage {
 			styleLoad = rxNovaCommonUtil.CheckBusyState();
 			isTabDisplayed = conditionsHeaderPage.IsTabProperlyDisplayed(ChildObjKey);
 		}
-		rxNovaCommonUtil.WaitForBusyIcon();
+		rxNovaCommonUtil.CheckBusyState();
 		Verify.actualExpected(isTabDisplayed, true, "'" + ObjKey + "'" + " is not Displayed");
 	}
 	
@@ -210,7 +210,7 @@ public class ActorConditionsHeaderPage {
 		EnteringTrackingIDforConditionDeletion("123456789954621", "Conditions Header 2nd Delete");
 		ObjPath = ConditionsHomePage.ConditionsHomeMap.get("Condition Deleted Message");
 		DeleteObj = conditionsHomePage.find(By.xpath(ObjPath));
-		rxNovaCommonUtil.WaitForBusyIcon();
+		rxNovaCommonUtil.CheckBusyState();
 	}
 	
 	@Step

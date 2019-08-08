@@ -56,18 +56,18 @@ public class ConditionNewMassChangeUIVerificationSteps {
 	public void createNewMassChange(String ObjKey, DataTable NewMassChangeData) throws InterruptedException {
 		actorOnConditionsMassChangePage.createNewMassChange(ObjKey, NewMassChangeData);
 		actorOnConditionsMassChangePage.clickIfClickable(ObjKey);
-		rxNovaCommonUtil.WaitForBusyIcon();
+		rxNovaCommonUtil.CheckBusyState();
 	}
 	
 	@Then("^Request Edit Panel should display all the correct fields$")
 	public void checkRequestEditPanel() throws InterruptedException {
-		rxNovaCommonUtil.WaitForBusyIcon();
+		rxNovaCommonUtil.CheckBusyState();
 		actorOnConditionsMassChangePage.checkRequestEditPanel();
 	}
 	
 	@Then("^User deletes newly submitted mass change request$")
 	public void deleteRequest(DataTable enterData) throws InterruptedException {
-		rxNovaCommonUtil.WaitForBusyIcon();
+		rxNovaCommonUtil.CheckBusyState();
 		actorOnConditionsMassChangePage.searchRequest(enterData);
 		actorOnConditionsMassChangePage.deleteRequest();
 	}

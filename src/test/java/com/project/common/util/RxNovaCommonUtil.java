@@ -658,7 +658,7 @@ public class RxNovaCommonUtil extends BasePage{
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	public String CheckBusyState() throws InterruptedException {
 		Thread.sleep(1000);
-		WebElement BusyElement = getDriver().findElement(By.id("loading"));
+		WebElement BusyElement = getDriver().findElement(By.id("progress"));
 
 		int cnt = 0;
 		int MaxSecond = 120;

@@ -104,7 +104,7 @@ public class ActorConditionsHomePage {
 			styleLoad = rxNovaCommonUtil.CheckBusyState();
 			isTabDisplayed = conditionsHomePage.IsTabProperlyDisplayed(ChildObjKey);
 		}
-		rxNovaCommonUtil.WaitForBusyIcon();
+		rxNovaCommonUtil.CheckBusyState();
 		assertTrue("'" + ObjKey + "'" + " is not displayed", isTabDisplayed);
 	}
 	

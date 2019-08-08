@@ -35,7 +35,7 @@ public class ConditionsFieldAdminPage extends BasePage {
 	}	
 	
 	public boolean checkDetailsPanelForCorrectLabels(String label) throws InterruptedException {
-		rxNovaCommonUtil.WaitForBusyIcon();
+		rxNovaCommonUtil.CheckBusyState();
 		List<WebElement> pageLabels = getDriver().findElements(By.className("firstCommonColumn"));
 		List<WebElement> newList = new ArrayList<WebElement>();
 		newList.addAll(pageLabels);
