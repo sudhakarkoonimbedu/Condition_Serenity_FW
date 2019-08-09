@@ -658,25 +658,35 @@ public class RxNovaCommonUtil extends BasePage{
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	public String CheckBusyState() throws InterruptedException {
 		Thread.sleep(1000);
-		WebElement BusyElement = getDriver().findElement(By.id("progress"));
+		WebElement BusyElement = getDriver().findElement(By.id("loading"));
+		//WebElement BusyElement = getDriver().findElement(By.id("_altlayer"));
 
 		int cnt = 0;
 		int MaxSecond = 120;
+		try {
 		System.out.println("Busy element style details : - " + BusyElement.getAttribute("style"));
-		while (!(BusyElement.getAttribute("style").contains("display: none;") && cnt <= MaxSecond))
-		// while(BusyElement.getAttribute("style").equalsIgnoreCase("display:
-		// none;"))
+		//System.out.println("TRACER 1- NO ATTIB Found.. Continue... " + BusyElement.getAttribute("style"));
+		if(BusyElement.getAttribute("style").equals("")) {
+			return "";	
+		}
+		while (!(BusyElement.getAttribute("style").contains("display: none;")))		
 		{
 			try {
 				Thread.sleep(500);
 				int v1 = cnt++;
+				if(cnt > MaxSecond){
+					return "";
+				}
 				System.out.println("waiting ... : " + v1 +" Seconds");
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-		}
-		
+		}		
 		return(BusyElement.getAttribute("style"));
+		}catch(Exception e1) {
+			//System.out.println("TRACER 2- NO ATTIB Found.. Continue... ");
+			return "";
+		}
 	}
 
 	
